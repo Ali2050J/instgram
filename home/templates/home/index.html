@@ -681,7 +681,7 @@
                                     <div class="post__indicators"></div>
 
                                     <button class="post__button post__button--align-right">
-                                        {% if post.save.all %}
+                                        {% if post.save.all|filter_save_with_user:request.user %}
                                             <a href="{% url 'post:post_unsave' post.id %}">
                                                 <img src="{% static 'icons/save.png' %}" alt="bookmark" width="27"
                                                      height="27">
