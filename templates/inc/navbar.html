@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="navbar-nav">
+            <a class="navbar-brand" href="{% url 'home:home' %}" active>Home</a>
+            {% if user.is_authenticated %}
+{#                <a class="navbar-brand" href="{% url 'accounts:user_profile' request.user.id %}" active>Profile</a>#}
+                <a class="navbar-brand" href="{% url 'accounts:user_logout' %}" active>Logout</a>
+            {% else %}
+                <a class="navbar-brand" href="{% url 'accounts:user_register' %}" active>Register</a>
+                <a class="navbar-brand" href="{% url 'accounts:user_login' %}" active>Login</a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <p class="navbar-brand" style="position: absolute; right: 15px">{{ user }}</p>
+            {% endif %}
+        </div>
+    </div>
+</nav>

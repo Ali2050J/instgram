@@ -1,0 +1,102 @@
+{% extends '_base.html' %}
+{% load static %}
+
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <body class="flex justify-center">
+        <div>
+        <div class="md:mx-52 sm:mx-44 sm:border sm:border-gray-200 bg-white mt-12">
+            <div class="my-4 px-32 sm:m-0 sm:p-16 sm:pt-10 sm:pb-10 text-center">
+                <img src="{% static 'accounts/images/instagramppng.png' %}" class="w-60 h-16 cente" alt=""/>
+            </div>
+            <div class="text-center">
+
+                <form class="flex flex-col justify-center items-center gap-1" action="" method="post">
+                    {% csrf_token %}
+                    <input type="text"
+                           class="border w-60 p-1 pl-3 bg-gray-50 border-gray-200 rounded-sm placeholder:text-xs outline-none"
+                           placeholder="Username" name="username"
+                    />
+                    <input
+                            type="text"
+                            class="border w-60 p-1 pl-3 bg-gray-50 border-gray-200 rounded-sm placeholder:text-xs outline-none"
+                            placeholder="Password"
+                            name="password"
+                    />
+                    <button class="mt-4 bg-blue-400 w-60 text-white rounded-md py-1" type="submit">
+                        Log in
+                    </button>
+                    <span class="cursor-pointer text-xs text-gray-500 mt-4 mb-6"
+                    >Forgot password?</span>
+                </form>
+
+            </div>
+        </div>
+        <div class="md:mx-52 sm:mx-44 sm:border sm:border-gray-200 bg-white mt-2 p-5 text-center text-sm">
+            <p>
+                Don't have an account?
+                <a href="{% url 'accounts:user_register' %}" class="text-blue-500 font-semibold">Sing Up</a>
+            </p>
+        </div>
+        <div class="text-center">
+            <p class="text-sm mt-4">Get the app</p>
+            <div class="flex mt-4 justify-center">
+                <img src="{% static 'accounts/images/googleplay.png' %}" class="w-36 h-16" alt=""/>
+                <img src="{% static 'accounts/images/microsoft.png' %}" class="w-36 h-10 mt-3" alt=""/>
+            </div>
+        </div>
+        <div class="flex flex-wrap w-full items-center justify-center space-x-3 text-xs text-gray-500 mt-24">
+            <a href="" class="hover:underline">Meta</a>
+            <a href="" class="hover:underline">About</a>
+            <a href="" class="hover:underline">Blog</a>
+            <a href="" class="hover:underline">Jobs</a>
+            <a href="" class="hover:underline">Help</a>
+            <a href="" class="hover:underline">Api</a>
+            <a href="" class="hover:underline">privacy</a>
+            <a href="" class="hover:underline">Terms</a>
+            <a href="" class="hover:underline">Location</a>
+            <a href="" class="hover:underline">Instagram lite</a>
+            <a href="" class="hover:underline">Threads</a>
+            <a href="" class="hover:underline">Contact uploading & Non users</a>
+            <a href="" class="hover:underline">Meta verified</a>
+        </div>
+        <div class="flex justify-center space-x-3 mt-5 text-xs text-gray-500">
+            <div class="text-right cursor-pointer h-3">
+                <select
+                        name="languages"
+                        id="languages"
+                        size="1"
+                        onfocus="this.size = 7"
+                        class="bg-transparent"
+                >
+                    <option value="English">English</option>
+                    <option value="Persian">Persian</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="SPANISH [SPN]">SPANISH [SPN]</option>
+                    <option value="HINDI [HND]">HINDI [HND]</option>
+                    <option value="RUSSIAN [RUS]">RUSSIAN [RUS]</option>
+                    <option value="JAPANESE [JPN]">JAPANESE [JPN]</option>
+                    <option value="FRENCH [FRN]">FRENCH [FRN]</option>
+                    <option value="POLISH [PQL]">POLISH [PQL]</option>
+                    <option value="UKRAINIAN [UKR]">UKRAINIAN [UKR]</option>
+                    <option value="ITALIAN [ITN]">ITALIAN [ITN]</option>
+                    <option value="KANNADA [KJV]">KANNADA [KJV]</option>
+                    <option value="AZERBAIJANI">AZERBAIJANI</option>
+                    <option value="Tunisia">Tunisia</option>
+                    <option value="INDONESIAN [INZ]">INDONESIAN [INZ]</option>
+                    <option value="Hungary">Hungary</option>
+                </select>
+            </div>
+            <div>
+                <p>© 2023 Instagram from Meta</p>
+            </div>
+        </div>
+    </div>
+    </body>
+
+{% endblock %}
