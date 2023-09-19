@@ -22,7 +22,7 @@ class Post(models.Model):
 
 class Save(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saves')
-    post = models.ManyToManyField(Post, related_name='save', blank=True, null=True)
+    post = models.ManyToManyField(Post, related_name='save', blank=True, default=None)
 
     def __str__(self):
         return f'{self.user}'
