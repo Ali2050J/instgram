@@ -413,6 +413,7 @@ img,
 video {
   max-width: 100%;
   height: auto;
+  /*background-size: cover;*/
 }
 
 /*
@@ -724,7 +725,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .w-\[15\] {
-  width: 15;
+  width: 15px;
 }
 
 .w-\[15\%\] {
@@ -732,7 +733,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .w-\[18\] {
-  width: 18;
+  width: 18px;
 }
 
 .w-\[18\%\] {
