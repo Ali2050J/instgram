@@ -597,118 +597,119 @@
                 <div class="posts">
                     {% if posts %}
                         {% for post in posts %}
-                        <article class="post">
+                            <article class="post">
 
-                            <div class="post__header">
-                                <div class="post__profile">
-                                    <a href="{% url 'accounts:user_profile' post.user.id %}" target="_blank"
-                                       class="post__avatar">
-                                        {% if post.user.profile.image %}
-                                            <img class="profile-pic" src="{{ post.user.profile.image.url }}"
-                                                 alt="User Picture"/>
-                                        {% else %}
-                                            <img class="profile-pic" src="{% static 'icons/default-user.png' %}"
-                                                 alt="User Picture"/>
-                                        {% endif %}
-                                    </a>
-                                    <a
-                                            href="{% url 'accounts:user_profile' post.user.id %}"
-                                            class="post__user"
-                                    >{{ post.user.username }}</a>
-                                </div>
-
-                                <button class="post__more-options">
-                                    <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <circle
-                                                cx="6.5"
-                                                cy="11.5"
-                                                r="1.5"
-                                                fill="var(--text-dark)"
-                                        />
-                                        <circle cx="12" cy="11.5" r="1.5" fill="var(--text-dark)"/>
-                                        <circle
-                                                cx="17.5"
-                                                cy="11.5"
-                                                r="1.5"
-                                                fill="var(--text-dark)"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div class="post__content">
-                                <div class="post__medias">
-                                    <img class="post__media" src="{{ post.image }}" alt="Post Content"
-                                         width="612px" height="390px"/>
-                                </div>
-                            </div>
-
-                            <div class="post__footer">
-                                <div class="post__buttons">
-                                    <button class="post__button">
-                                        {% if not request.user in post.like.all %}
-                                            <a href="{% url 'post:post_like' post.id %}">
-                                                <img src="{% static 'icons/white-heart.png' %}" alt="white-heart"
-                                                     width="24" height="24">
-                                            </a>
-                                        {% else %}
-                                            <a href="{% url 'post:post_like' post.id %}">
-                                                <img src="{% static 'icons/red-heart.png' %}" alt="white-heart"
-                                                     width="24" height="24">
-                                            </a>
-                                        {% endif %}
-                                    </button>
-
-                                    <button class="post__button">
-                                        <a href="">
-                                            <img src="{% static 'icons/comment.png' %}" alt="comment" width="24"
-                                                 height="24">
+                                <div class="post__header">
+                                    <div class="post__profile">
+                                        <a href="{% url 'accounts:user_profile' post.user.id %}" target="_blank"
+                                           class="post__avatar">
+                                            {% if post.user.profile.image %}
+                                                <img class="profile-pic" src="{{ post.user.profile.image.url }}"
+                                                     alt="User Picture"/>
+                                            {% else %}
+                                                <img class="profile-pic" src="{% static 'icons/default-user.png' %}"
+                                                     alt="User Picture"/>
+                                            {% endif %}
                                         </a>
-                                    </button>
+                                        <a
+                                                href="{% url 'accounts:user_profile' post.user.id %}"
+                                                class="post__user"
+                                        >{{ post.user.username }}</a>
+                                    </div>
 
-                                    <button class="post__button">
-                                        <a href="">
-                                            <img src="{% static 'icons/send.png' %}" alt="send" width="24" height="24">
-                                        </a>
-                                    </button>
-
-                                    <div class="post__indicators"></div>
-
-                                    <button class="post__button post__button--align-right">
-                                        {% if post.save.all|filter_save_with_user:request.user %}
-                                            <a href="{% url 'post:post_unsave' post.id %}">
-                                                <img src="{% static 'icons/save.png' %}" alt="bookmark" width="27"
-                                                     height="27">
-                                            </a>
-                                        {% else %}
-                                            <a href="{% url 'post:post_save' post.id %}">
-                                                <img src="{% static 'icons/unsave.png' %}" alt="bookmark" width="29"
-                                                     height="29">
-                                            </a>
-                                        {% endif %}
+                                    <button class="post__more-options">
+                                        <svg
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <circle
+                                                    cx="6.5"
+                                                    cy="11.5"
+                                                    r="1.5"
+                                                    fill="var(--text-dark)"
+                                            />
+                                            <circle cx="12" cy="11.5" r="1.5" fill="var(--text-dark)"/>
+                                            <circle
+                                                    cx="17.5"
+                                                    cy="11.5"
+                                                    r="1.5"
+                                                    fill="var(--text-dark)"
+                                            />
+                                        </svg>
                                     </button>
                                 </div>
 
-                                <div class="post__infos">
-                                    <div class="post__likes">
-                                        <a href="#" class="post__likes-avatar">
-                                            <img class="profile-pic" src="{% static 'icons/default-user.png' %}"
-                                                 alt="User Picture"/>
-                                        </a>
+                                <div class="post__content">
+                                    <div class="post__medias">
+                                        <img class="post__media" src="{{ post.image }}" alt="Post Content"
+                                             width="612px" height="390px"/>
+                                    </div>
+                                </div>
 
-                                        <span>{{ post.like.all|length }} Likes
+                                <div class="post__footer">
+                                    <div class="post__buttons">
+                                        <button class="post__button">
+                                            {% if not request.user in post.like.all %}
+                                                <a href="{% url 'post:post_like' post.id %}">
+                                                    <img src="{% static 'icons/white-heart.png' %}" alt="white-heart"
+                                                         width="24" height="24">
+                                                </a>
+                                            {% else %}
+                                                <a href="{% url 'post:post_like' post.id %}">
+                                                    <img src="{% static 'icons/red-heart.png' %}" alt="white-heart"
+                                                         width="24" height="24">
+                                                </a>
+                                            {% endif %}
+                                        </button>
+
+                                        <button class="post__button">
+                                            <a href="">
+                                                <img src="{% static 'icons/comment.png' %}" alt="comment" width="24"
+                                                     height="24">
+                                            </a>
+                                        </button>
+
+                                        <button class="post__button">
+                                            <a href="">
+                                                <img src="{% static 'icons/send.png' %}" alt="send" width="24"
+                                                     height="24">
+                                            </a>
+                                        </button>
+
+                                        <div class="post__indicators"></div>
+
+                                        <button class="post__button post__button--align-right">
+                                            {% if post.save.all|filter_save_with_user:request.user %}
+                                                <a href="{% url 'post:post_unsave' post.id %}">
+                                                    <img src="{% static 'icons/save.png' %}" alt="bookmark" width="27"
+                                                         height="27">
+                                                </a>
+                                            {% else %}
+                                                <a href="{% url 'post:post_save' post.id %}">
+                                                    <img src="{% static 'icons/unsave.png' %}" alt="bookmark" width="29"
+                                                         height="29">
+                                                </a>
+                                            {% endif %}
+                                        </button>
+                                    </div>
+
+                                    <div class="post__infos">
+                                        <div class="post__likes">
+                                            <a href="#" class="post__likes-avatar">
+                                                <img class="profile-pic" src="{% static 'icons/default-user.png' %}"
+                                                     alt="User Picture"/>
+                                            </a>
+
+                                            <span>{{ post.like.all|length }} Likes
 {#                                          <a class="post__name--underline" href="#">user123</a> and#}
 {#                                          <a href="#">73 others</a>#}
                                         </span>
-                                    </div>
+                                        </div>
 
-                                    <div class="post__description">
+                                        <div class="post__description">
                                         <span>
                                           <a class="post__name--underline" href="https://github.com/leocosta1"
                                              target="_blank">
@@ -717,17 +718,17 @@
 
                                           {{ post.caption }}
                                         </span>
-                                    </div>
+                                        </div>
 
-                                    <div class="post__view-comments">
+                                        <div class="post__view-comments">
                                         <span>
                                             {% if post.comments.all %}
                                                 <a href="">View all {{ post.comments.all|length }} comments</a>
                                             {% endif %}
                                         </span>
-                                    </div>
+                                        </div>
 
-                                    <div class="post__one-comment">
+                                        <div class="post__one-comment">
                                         <span>
                                             {% if post.comments.all %}
                                                 <div class="post__comments">
@@ -751,21 +752,21 @@
                                                 </div>
                                             {% endif %}
                                         </span>
-                                    </div>
+                                        </div>
 
-                                    <span class="post__date-time">{{ post.created|timesince }}</span>
+                                        <span class="post__date-time">{{ post.created|timesince }}</span>
 
-                                    <div class="post__comments-form">
-                                        <form action="{% url 'comment:create_comment' post.id %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="text" placeholder="Add a comment..." name="body">
-                                            <input type="submit" value="Post">
-                                        </form>
+                                        <div class="post__comments-form">
+                                            <form action="{% url 'comment:create_comment' post.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="text" placeholder="Add a comment..." name="body">
+                                                <input type="submit" value="Post">
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </article>
-                    {% endfor %}
+                            </article>
+                        {% endfor %}
                     {% else %}
                         <h1 style="margin: 200px auto">There is not Posts!</h1>
                     {% endif %}
@@ -773,22 +774,22 @@
             </div>
 
             <section class="side-menu">
-{#                <div class="side-menu__user-profile">#}
-{#                    <a#}
-{#                            href="https://github.com/leocosta1"#}
-{#                            target="_blank"#}
-{#                            class="side-menu__user-avatar"#}
-{#                    >#}
-{#                        <img class="profile-pic" src="{% static 'icons/default-user.png' %}" alt="User Picture"/>#}
-{#                    </a>#}
-{#                    <div class="side-menu__user-info">#}
-{#                        <a href="https://github.com/leocosta1" target="_blank"#}
-{#                        >leocosta1</a#}
-{#                        >#}
-{#                        <span>Leonardo Costa</span>#}
-{#                    </div>#}
-{#                    <button class="side-menu__user-button">Switch</button>#}
-{#                </div>#}
+                {#                <div class="side-menu__user-profile">#}
+                {#                    <a#}
+                {#                            href="https://github.com/leocosta1"#}
+                {#                            target="_blank"#}
+                {#                            class="side-menu__user-avatar"#}
+                {#                    >#}
+                {#                        <img class="profile-pic" src="{% static 'icons/default-user.png' %}" alt="User Picture"/>#}
+                {#                    </a>#}
+                {#                    <div class="side-menu__user-info">#}
+                {#                        <a href="https://github.com/leocosta1" target="_blank"#}
+                {#                        >leocosta1</a#}
+                {#                        >#}
+                {#                        <span>Leonardo Costa</span>#}
+                {#                    </div>#}
+                {#                    <button class="side-menu__user-button">Switch</button>#}
+                {#                </div>#}
 
                 <div class="side-menu__suggestions-section">
                     <div class="side-menu__suggestions-header">

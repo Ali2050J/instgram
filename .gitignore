@@ -1,3 +1,4 @@
 .idea
-venv/
+Pipfile
+Pipfile.lock
 db.sqlite3
