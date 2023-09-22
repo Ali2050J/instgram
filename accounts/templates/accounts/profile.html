@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-    <title>Modern CSS Basics - Instagram Profile Page (Syntax - Class)</title>
+    <title>Pforile</title>
     <link rel="stylesheet" href="{% static 'profile/src/css/style.css' %}"/>
 {% endblock %}
 
@@ -162,15 +162,15 @@
                              alt="profile-picture"/>
                     </div>
                     <div class="flex mr-7 ml-5 md:mr-14 sm:mr-10 justify-center content-between flex-col items-center md:font-semibold md:ml-28 sm:ml-20">
-                        <span id="postcunt" class="-mb-2">0</span>
+                        <span id="postcunt" class="-mb-2">{{ user.posts.all|length }}</span>
                         <span>Posts</span>
                     </div>
                     <div class="flex mr-7 md:mr-14 sm:mr-10 justify-center content-between flex-col items-center md:font-semibold">
-                        <span id="Fllowers" class="-mb-2">0</span>
+                        <span id="Fllowers" class="-mb-2">{{ user.follower.all|length }}</span>
                         <span>Fllowers</span>
                     </div>
                     <div class="flex mr-7 md:mr-14 sm:mr-10 justify-center content-start flex-col items-center md:font-semibold">
-                        <span id="Fllowing" class="-mb-2">0</span>
+                        <span id="Fllowing" class="-mb-2">{{ user.following.all|length }}</span>
                         <span>Fllowing</span>
                     </div>
                 </div>
@@ -283,7 +283,7 @@
             </div>
             <div class="flex ml-6 cursor-pointer flex-row space-x-5 items-center">
                 <div class="rounded-full -ml-2 overflow-hidden w-10 h-10">
-                    <img class="object-cover" src="../download.jfif" alt="profile-pictures"/>
+                    <img class="object-cover" src="{{ user.profile.image.url }}" alt="profile-pictures"/>
                 </div>
                 <h3>Profile</h3>
             </div>

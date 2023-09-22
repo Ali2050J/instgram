@@ -435,15 +435,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
-  --tw-blur: var(--tw-empty,/*!*/ /*!*/);
-  --tw-brightness: var(--tw-empty,/*!*/ /*!*/);
-  --tw-contrast: var(--tw-empty,/*!*/ /*!*/);
-  --tw-grayscale: var(--tw-empty,/*!*/ /*!*/);
-  --tw-hue-rotate: var(--tw-empty,/*!*/ /*!*/);
-  --tw-invert: var(--tw-empty,/*!*/ /*!*/);
-  --tw-saturate: var(--tw-empty,/*!*/ /*!*/);
-  --tw-sepia: var(--tw-empty,/*!*/ /*!*/);
-  --tw-drop-shadow: var(--tw-empty,/*!*/ /*!*/);
+  /*--tw-blur: var(--tw-empty,!*!*! !*!*!);*/
+  /*--tw-brightness: var(--tw-empty,!*!*! !*!*!);*/
+  /*--tw-contrast: var(--tw-empty,!*!*! !*!*!);*/
+  /*--tw-grayscale: var(--tw-empty,!*!*! !*!*!);*/
+  /*--tw-hue-rotate: var(--tw-empty,!*!*! !*!*!);*/
+  /*--tw-invert: var(--tw-empty,!*!*! !*!*!);*/
+  /*--tw-saturate: var(--tw-empty,!*!*! !*!*!);*/
+  /*--tw-sepia: var(--tw-empty,!*!*! !*!*!);*/
+  /*--tw-drop-shadow: var(--tw-empty,!*!*! !*!*!);*/
   --tw-filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
@@ -656,9 +656,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 24rem;
 }
 
-.h-\[30\] {
-  height: 30;
-}
+/*.h-\[30\] {*/
+/*  height: 30;*/
+/*}*/
 
 .h-\[30rem\] {
   height: 30rem;
@@ -740,9 +740,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 18%;
 }
 
-.w-\[\%\] {
-  width: %;
-}
+/*.w-\[\%\] {*/
+/*  width: %;*/
+/*}*/
 
 .w-\[39\%\] {
   width: 39%;
@@ -769,8 +769,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .min-w-fit {
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
+  /*min-width: -webkit-fit-content;*/
+  /*min-width: -moz-fit-content;*/
   min-width: fit-content;
 }
 
@@ -1044,6 +1044,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-slate-500 {
   --tw-text-opacity: 1;
   color: rgb(100 116 139 / var(--tw-text-opacity));
+  margin: 1px 0;
 }
 
 .blur-sm {
