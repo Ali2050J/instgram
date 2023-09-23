@@ -63,7 +63,7 @@ class UserFollowView(LoginRequiredMixin, View):
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
         relation = Relation.objects.filter(from_user=request.user, to_user=user)
-        if not relation.exists():
+        if not relation.exists() and (user != request.user):
             Relation.objects.create(from_user=request.user, to_user=user)
         return redirect(request.META.get('HTTP_REFERER'))
 
@@ -72,6 +72,6 @@ class UserUnfollowView(LoginRequiredMixin, View):
     def get(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
         relation = Relation.objects.filter(from_user=request.user, to_user=user)
-        if relation.exists():
+        if relation.exists() and (user != request.user):
             relation.delete()
         return redirect(request.META.get('HTTP_REFERER'))
