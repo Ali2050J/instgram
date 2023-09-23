@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from post.models import Post, Save
+from post.models import Post, Favorite
 
 
 @admin.register(Post)
@@ -9,4 +9,4 @@ class PostAdmin(admin.ModelAdmin):
     raw_id_fields = ("user",)
 
 
-admin.site.register(Save)
+admin.site.register(Favorite)

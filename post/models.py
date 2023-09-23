@@ -20,9 +20,9 @@ class Post(models.Model):
         return f'{self.caption[:10]}...'
 
 
-class Save(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saves')
-    post = models.ManyToManyField(Post, related_name='save', blank=True, default=None)
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+    post = models.ManyToManyField(Post, related_name='favorite', blank=True, default=None)
 
     def __str__(self):
         return f'{self.user}'

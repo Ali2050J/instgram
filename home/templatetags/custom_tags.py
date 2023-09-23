@@ -1,7 +1,6 @@
 from django import template
 
 from accounts.models import Relation
-from post.models import Save
 
 register = template.Library()
 

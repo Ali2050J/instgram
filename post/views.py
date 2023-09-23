@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, UpdateView
 
-from .models import Post, Save
+from .models import Post, Favorite
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -41,9 +41,9 @@ class SavePostView(LoginRequiredMixin, View):
     def get(self, request, pk):
         user = request.user
         post = Post.objects.get(pk=pk)
-        save = Save.objects.get(user=user)
-        if post not in save.post.all():
-            save.post.add(post)
+        favorite = Favorite.objects.get(user=user)
+        if post not in favorite.post.all():
+            favorite.post.add(post)
         return redirect(request.META.get('HTTP_REFERER'))
 
 
@@ -51,7 +51,7 @@ class UnSavePostView(LoginRequiredMixin, View):
     def get(self, request, pk):
         user = request.user
         post = Post.objects.get(pk=pk)
-        save = Save.objects.get(user=user)
-        if post in save.post.all():
-            save.post.remove(post)
+        favorite = Favorite.objects.get(user=user)
+        if post in favorite.post.all():
+            favorite.post.remove(post)
         return redirect(request.META.get('HTTP_REFERER'))
