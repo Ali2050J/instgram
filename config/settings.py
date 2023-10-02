@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'post.apps.PostConfig',
     'story.apps.StoryConfig',
     'comment.apps.CommentsConfig',
+    'api.apps.ApiConfig',
 
     # third party apps
     'debug_toolbar',
