@@ -1,4 +1,11 @@
 {% extends '_base.html' %}
+{% load static %}
+
+{% block style %}
+  <title>Edit Profile</title>
+  {% comment %} <link rel="stylesheet" href="{% static 'profile/src/css/style.css' %}" /> {% endcomment %}
+{% endblock %}
+
 
 
 {% block content %}
@@ -8,4 +15,50 @@
         {{ profile_form.as_p }}
         <input type="submit" value="Edit">
     </form>
+
+
+    {% comment %} <body id="easy" class="font-serif">
+        <header class="grid grid-cols-2">
+            <div class="scale-50 justify-self-start"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 40 40">
+                <path fill="#dff0fe" d="M1.707 22.199L4.486 19.42 13.362 28.297 35.514 6.145 38.293 8.924 13.362 33.855z"></path><path fill="#4788c7" d="M35.514,6.852l2.072,2.072L13.363,33.148L2.414,22.199l2.072-2.072l8.169,8.169l0.707,0.707 l0.707-0.707L35.514,6.852 M35.514,5.438L13.363,27.59l-8.876-8.876L1,22.199l12.363,12.363L39,8.924L35.514,5.438L35.514,5.438z"></path>
+                </svg></div>
+                <div class="justify-self-end">
+                 
+                  <div class="flex items-center"><span>Edite profile</span>
+                  <a  id="lid" class="cach" href="/profile">
+                     <img class="w-20 nav-link "  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAACFUlEQVR4nO3cu0oDQRiG4Q+0sdUbMZsqsTeJdopYeCw9K1aebb0OQb0Jb0G8ERW0UTwkIiQgkolhk935M/M+sKXryMvE3ezMSgAAAAAAAAAAAAAAAAAAAKEaknQpaUH2jUu6lTSmgGNcS2pI+jQepSDpoTnW+1CjtGK0jg9J87KnKOnpz1jvJI0oMLOS3v/8oT8zZVE2Z0bj13GuQM04oiwZifEYU4z/oix7HFPiiHGmSExLemsTZcXDWKKP0SnKV85RiNFllFWPMU4Vuak2UeqS1jK+tCVGiijrOd1nMDM8RSk6Ypz08XcEpeaIstGHcxPDUJSiY2Yc93DO6KK8tomymeJcJUnPxMguyhYx/Kk6omx38bNlx8w4ymHcQaumiEIMT1F2HDFemBn+oux2EeMwh/FFqeKIsidpghi2rr5e28yMfU9jjE7FEeD3ceB7kLGZ7BCFGMZmyYGPAcWs0sVHFldWOanxT30w7kXKXPbau1sv8/2VnRgtRMlYlS8Xw3gmUuLBlL2nhiWiZPtcfTPFuVjcMECLHE56HWysa7M2+nBuohhdKPfIqsV0i67rGa3vZZG1wRXwCTPF3h6RJPZdUxZ3USVEsbfPsBDrZk/LO3ELsUaZNb4t+iGmKIP84oALBYhXaxh8+czVgLx8ZjyGl8/8GJZ0I2lO9iXN1zON+h4IAAAAAAAAAAAAAAAAAACAMvENcwTs4pqjD4oAAAAASUVORK5CYII=">
+            </a>
+                </div>
+               
+                </div>
+                 
+        </header>
+        <div>
+            <div class="flex flex-col space-x-3 items-center "> 
+                <img class="w-40 rounded-full h-40" src="../PRI1.jpg" alt="">
+                <a class="mt-4 font-semibold" href="">change profile photo</a>
+            </div>
+            <ul class="flex space-y-3 flex-col space-x-8">
+        <span class="ml-8">name</span><input  class="outline-none border-b " type="text">
+        <span>user name</span><input class="outline-none border-b " type="text">
+        <label for="gender">gender</label>
+        <select name="gender"  id="gender">
+        
+            <option value="">male</option>
+            <option value="">female</option>
+        
+        </select>
+        <span>website</span><input class="outline-none border-b " type="text">
+        <span>Bio</span><input class="outline-none border-b " type="text">
+            </ul>
+            <div>
+                <a href=""></a>
+                <a href=""></a>
+            </div>
+        </div>
+        
+        <script type="module" src="./spa.js"></script>
+            <script type="module" src="./editeProfile.js"></script>
+    </body> {% endcomment %}
+
 {% endblock %}

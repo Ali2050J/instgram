@@ -682,15 +682,22 @@
                                         <div class="post__indicators"></div>
 
                                         <button class="post__button post__button--align-right">
-                                            {% if post.favorite.all|filter_save_with_user:request.user %}
-                                                <a href="{% url 'post:post_unsave' post.id %}">
-                                                    <img src="{% static 'icons/save.png' %}" alt="bookmark" width="27"
-                                                         height="27">
-                                                </a>
+                                            {% if request.user.is_authenticated %}
+                                                {% if post.favorite.all|filter_save_with_user:request.user %}
+                                                    <a href="{% url 'post:post_unsave' post.id %}">
+                                                        <img src="{% static 'icons/save.png' %}" alt="bookmark" width="27"
+                                                            height="27">
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'post:post_save' post.id %}">
+                                                        <img src="{% static 'icons/unsave.png' %}" alt="bookmark" width="29"
+                                                            height="29">
+                                                    </a>
+                                                {% endif %}
                                             {% else %}
                                                 <a href="{% url 'post:post_save' post.id %}">
                                                     <img src="{% static 'icons/unsave.png' %}" alt="bookmark" width="29"
-                                                         height="29">
+                                                        height="29">
                                                 </a>
                                             {% endif %}
                                         </button>
