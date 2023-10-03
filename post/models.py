@@ -9,7 +9,7 @@ class Post(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    image = models.ImageField(upload_to='static/images/')
+    image = models.ImageField(upload_to='images/')
     caption = models.TextField()
     like = models.ManyToManyField(User, related_name="liked", blank=True, default=None)
     status = models.CharField(max_length=20, choices=STATUS)

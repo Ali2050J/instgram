@@ -28,4 +28,4 @@ urlpatterns = [
     path('story/', include('story.urls', namespace='story')),
     path('comment/', include('comment.urls', namespace='comment')),
     path('api/', include('api.urls', namespace='api')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

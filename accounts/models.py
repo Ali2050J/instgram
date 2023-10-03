@@ -11,7 +11,7 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    image = models.ImageField(upload_to='static/images/', blank=True, null=True)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     full_name = models.CharField(max_length=100, blank=True, null=True)
     bio = models.TextField(max_length=30, blank=True, null=True)
     gender = models.CharField(max_length=50, choices=GENDERS, blank=True, null=True)
