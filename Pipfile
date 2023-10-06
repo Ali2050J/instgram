@@ -221,6 +221,7 @@ yarl = "==1.8.2"
 django-jazzmin = "*"
 dj-database-url = "*"
 dotenv = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
