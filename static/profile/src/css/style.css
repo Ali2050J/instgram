@@ -458,6 +458,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   position: absolute;
 }
 
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
 .-z-10 {
   z-index: -10;
 }
@@ -480,6 +484,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .z-10 {
   z-index: 10;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.m-0 {
+  margin: 0;
 }
 
 .m-20 {
@@ -761,6 +773,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .min-h-\[1300px\] {
   min-height: 1300px;
+}
+
+.w-300 {
+  width: 300px;
 }
 
 .w-full {

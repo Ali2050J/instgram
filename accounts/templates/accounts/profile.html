@@ -11,7 +11,7 @@
 
 <body id="easy"
     style="font-family:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"
-    class="f">
+    class="m-0 p-0 overflow-x-hidden">
 
 
     <!--modals for edite post -->
@@ -314,7 +314,7 @@
         </div>
     </div>
     <div class="flex">
-        <div class="w-[39%] hidden  xl:block  h-[1300px]"></div>
+        <div class="w-300 hidden  xl:block  h-[1300px]"></div>
         <div id="blure"
             class="min-h-[1300px]  max-w-[640px] overflow-ellipsis md:mx-auto lg:mx-auto sm:mx-auto xl:mx-auto bg-white flex flex-col md:max-w-screen-md sm:max-w-screen-sm lg:max-w-5xl xl:max-w-7xl ">
 
@@ -458,7 +458,7 @@
             <div id="postBox" class="grid max-w-[114rem] grid-cols-3 mt-1 space-x-1 border border-white">
                 {% if user.posts.all %}
                 {% for post in user.posts.all %}
-                <div class="bg-black overflow-hidden" id='post'>
+                <div class="bg-black flex justify-center items-center overflow-hidden" id='post'>
                     <img class="md:object-cover" src="{{ post.image.url }}" alt="#" />
                 </div>
                 {% endfor %}
@@ -468,7 +468,7 @@
             <div id="postBoxSave" class="max-w-[114rem] hidden grid-cols-3 mt-1 space-x-1 border border-white">
                 {% if user.favorites.first.post.all %}
                 {% for post in user.favorites.first.post.all %}
-                <div class="bg-black overflow-hidden" id='favorite-post'>
+                <div class="bg-black flex justify-center items-center overflow-hidden" id='favorite-post'>
                     <img class="md:object-cover" src="{{ post.image.url }}" alt="#" />
                 </div>
                 {% endfor %}
