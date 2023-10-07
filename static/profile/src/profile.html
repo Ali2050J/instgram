@@ -1,263 +1,551 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/animate.css">
+    <style>
+        .rese {
+            height: 300px;
+            /* ارتفاع پیشفرض */
+        }
+
+        @media (max-width: 320px) {
+            .rese {
+                height: 7rem;
+                /* ارتفاع در صفحات با عرض کمتر از 320 پیکسل */
+            }
+        }
+    </style>
     <title>profile</title>
 </head>
-<body id="easy" style="font-family:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"  class="f"> 
+
+<body id="easy"
+    style="font-family:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"
+    class="m-0 p-0 h-full w-screen xl:overflow-x-hidden lg:overflow-x-hidden sm:overflow-x-hidden md:overflow-x-hidden  overflow-x-hidden">
 
 
-<!--modals for edite post -->
+    <!--modals for edite post -->
 
 
-<main id="main" class=" z-[2] mt-48 absolute flex justify-center justify-items-center w-full">
-<!--onclick-->
-<form id="editeInfo"  class="w-7/12 h-[450px] hidden bg-white absolute z-40  mt-16  rounded-t-xl border border-b-0 ">
-    <div class="h-12 w-full grid grid-cols-3 justify-items-center border-b  items-center ">
-        <span  class="font-light justify-self-start ml-5 cancel cursor-pointer">cancel</span>
-        <span class="font-semibold ">Edite info</span>
-        <span class=" text-blue-500 justify-self-end mr-5">Done</span>
-    </div>
+    <main id="main" class=" z-[2] mt-48 absolute flex justify-center justify-items-center w-full">
+        <!--onclick-->
+        <form id="editeInfo"
+            class="w-7/12 h-[450px] hidden bg-white absolute z-40  mt-16  rounded-t-xl border border-b-0 ">
+            <div class="h-12 w-full grid grid-cols-3 justify-items-center border-b  items-center ">
+                <span class="font-light justify-self-start ml-5 cancel cursor-pointer">cancel</span>
+                <span class="font-semibold ">Edit info</span>
+                <span class=" text-blue-500 justify-self-end mr-5">Done</span>
+            </div>
 
-    <div class="grid grid-cols-2 w-full rounded-b-xl bg-white border overflow-hidden border-t-0 h-full">
-        <div class="w-full h-full overflow-hidden items-center flex bg-black "><img class=" object-cover" src="../PRI1.jpg" alt=""></div>
-        <div>
-            <div class="w-full h-full">
-                <div class="w-full h-12 flex space-x-5 justify-start items-center">
-                    <div class="w-12 h-12 ml-5 mt-4 rounded-full bg-black overflow-hidden flex items-center justify-center "><img class="object-cover  " src="../PRI1.jpg" alt=""></div>
-                    
-                <h2 class="mt-4">user name</h2>
+            <div class="grid grid-cols-2 w-full rounded-b-xl bg-white border overflow-hidden border-t-0 h-full">
+                <div class="w-full h-full overflow-hidden items-center imgside flex bg-black "></div>
+                <div>
+                    <div class="w-full h-full">
+                        <div class="w-full h-12 flex space-x-5 justify-start items-center">
+                            {% if user.profile.image %}
+                            <div
+                                class="w-12 h-12 ml-5 mt-4 rounded-full bg-black overflow-hidden flex items-center justify-center ">
+                                <img class="object-cover" src="{{ user.profile.image.url }}" alt="">
+                            </div>
+                            {% endif %}
+
+                            <h2 class="mt-4">{{ user.usernanem }}</h2>
+
+                        </div>
+
+                        <textarea
+                            class="h-52  overflow-y-scroll  disc  resize-none  w-11/12 ml-3 mt-6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur laboriosam aspernatur consectetur voluptatibus fuga sequi praesentium nesciunt. Vero vel, sit dolorem esse nihil beatae, quo impedit tenetur corporis possimus reprehenderit temporibus aliquam enim velit repudiandae? Nostrum voluptate aliquid unde dolore!</textarea>
+
+                        <div class="w-11/12 flex flex-row justify-end h-12 ">
+                            <span class="font-extralight">0</span><span class="font-extralight">/2.200</span>
+                        </div>
+                        <input class="w-9/12 ml-3 mt-7 outline-none" placeholder="Add location" type="text">
+                        <select class="w-11/12 ml-2 mt-4" name="" id="">
+                            <option value="">publish</option>
+                            <option value="">draft</option>
+                        </select>
+                    </div>
 
                 </div>
-               
-                    <textarea class="h-52  overflow-y-scroll   resize-none  w-11/12 ml-3 mt-6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur laboriosam aspernatur consectetur voluptatibus fuga sequi praesentium nesciunt. Vero vel, sit dolorem esse nihil beatae, quo impedit tenetur corporis possimus reprehenderit temporibus aliquam enim velit repudiandae? Nostrum voluptate aliquid unde dolore!</textarea>
-                                
-                <div class="w-11/12 flex flex-row justify-end h-12 ">
-                    <span class="font-extralight">0</span><span class="font-extralight">/2.200</span>
-                </div>  
-                              <input class="w-9/12 ml-3 mt-7 outline-none" placeholder="Add location" type="text">
-            <select class="w-11/12 ml-2 mt-4"  name="" id="">
-<option value="">publish</option>
-<option value="">draft</option>
-            </select>
             </div>
+        </form>
+
+
+
+
+
+
+        <!--select-->
+
+        <div id="select"
+            class="h-80  hidden absolute z-30 -mr-32 m-20 shadow-md justify-center justify-items-center w-3/12 bg-white overflow-hidden border rounded-xl   items-center grid-rows-6">
+
+            <div class=" cursor-pointer flex w-[600px] justify-center items-center pt-4 text-red-600 font-semibold   ">
+                Delete</div>
+            <div id="openEditeInfo" class=" cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">
+                Edite</div>
+            <div class=" cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">Hide like count
+            </div>
+            <div class=" cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">Turn on commenting
+            </div>
+            <div class=" cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">About this accont
+            </div>
+            <div class=" cancel cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">cancel</div>
+
 
         </div>
-    </div>
-</form>
 
-            
+        <div id="zBlure"
+            class="h-[85vh] hidden w-5/6 grid absolute mx-auto z-20 grid-cols-2 overflow-hidden  bg-white  content-center  rounded-md">
+
+            <!--its for left side just post piture-->
+            <div class="bg-black object-cover flex items-center imgside "></div>
+            <!--right side -->
+            <div class="">
+                <!--top profile & user name-->
+                <div class="grid grid-cols-2">
+                    <div class="flex  items-center mb-3">
+                        {% if user.profile.image %}
+                        <div
+                            class="w-12 h-12 ml-5 mt-4 rounded-full bg-black overflow-hidden flex items-center justify-center ">
+                            <img class="object-cover  " src="{{ user.profile.image.url }}" alt="">
+                        </div>
+                        {% endif %}
+
+                        <h2 class=" ml-4 mt-4">{{ user.username }}</h2>
+                    </div>
+                    <div class="justify-self-end flex items-center mr-4 cursor-pointer">
+                        <!--onklick-->
+                        <svg id="openSelect" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xmlns="http://www.w3.org/2000/svg" aria-label="More options" class="_ab6-"
+                            color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24"
+                            width="24">
+                            <circle cx="12" cy="12" r="1.5"></circle>
+                            <circle cx="6" cy="12" r="1.5"></circle>
+                            <circle cx="18" cy="12" r="1.5"></circle>
+                        </svg>
+                    </div>
+                </div>
+                <!--profil username and more-->
+                <div class="grid border-t h-[50vh] ">
 
 
 
 
-<!--select-->
+                    <div class=" flex items-center">
+                        {% if user.profile.image %}
+                        <div
+                            class="w-12 h-12 ml-5 mt-4 rounded-full bg-black overflow-hidden flex items-center justify-center ">
+                            <img class="object-cover" src="{{ user.profile.image.url }}" alt="">
+                        </div>
+                        {% endif %}
 
-<div id="select" class="h-80  hidden absolute z-30 -mr-32 m-20 shadow-md justify-center justify-items-center w-3/12 bg-white overflow-hidden border rounded-xl   items-center grid-rows-6">
+                        <h2 class=" ml-4 mt-4">{{ user.username }}</h2>
 
-<div class=" cursor-pointer flex w-[600px] justify-center items-center pt-4 text-red-600 font-semibold   ">Delete</div>
-<div id="openEditeInfo" class=" cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">Edite</div>
-<div class=" cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">Hide like count</div>
-<div class=" cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">Turn on commenting</div>
-<div class=" cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">About this accont</div>
-<div class=" cancel cursor-pointer flex w-[600px] justify-center items-center pt-4  border-t ">cancel</div>
+                    </div>
+                    <span class="ml-5 disc w-4/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo,
+                        nulla.</span>
 
 
-</div>
-
-<div id="zBlure" class="h-[85vh] hidden w-5/6 grid absolute mx-auto z-20 grid-cols-2 overflow-hidden  bg-white  content-center  rounded-md">
-
-<!--its for left side just post piture-->
-<div class="bg-black object-cover flex items-center "><img src="../PRI1.jpg" alt=""></div>
-<!--right side -->
-<div class="">
-    <!--top profile & user name-->
-    <div class="grid grid-cols-2">
-    <div class="flex  items-center mb-3">
-        <div class="w-12 h-12 ml-5 mt-4 rounded-full bg-black overflow-hidden flex items-center justify-center "><img class="object-cover  " src="../PRI1.jpg" alt=""></div>
-                    
-        <h2 class=" ml-4 mt-4">user name</h2>
-    </div>
-    <div class="justify-self-end flex items-center mr-4 cursor-pointer">
-        <!--onklick-->
-        <svg id="openSelect"  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="More options" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><circle cx="12" cy="12" r="1.5"></circle><circle cx="6" cy="12" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle></svg>
-    </div>
-</div>
-    <!--profil username and more-->
-    <div class="grid border-t h-[50vh] ">
-
-        
-        
-
-            <div class=" flex items-center">
-        <div class="w-12 h-12 ml-5 mt-4 rounded-full bg-black overflow-hidden flex items-center justify-center "><img class="object-cover  " src="../PRI1.jpg" alt=""></div>
-                    
-        <h2 class=" ml-4 mt-4">user name</h2>
-        
+                </div>
+                <!--for like & save and who liked -->
+                <div class="h-28">
+                    <!--like and save-->
+                    <hr>
+                    <div class="grid mt-3 grid-cols-2">
+                        <div class="ml-4 cursor-pointer flex items-center justify-self-start"><svg
+                                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+                                aria-label="Unlike" class="x1lliihq x1n2onr6" color="rgb(255, 48, 64)"
+                                fill="rgb(255, 48, 64)" height="24" role="img" viewBox="0 0 48 48" width="24">
+                                <title>Unlike</title>
+                                <path
+                                    d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"
+                                    fill="#FF3040"></path>
+                            </svg></div>
+                        <div class="mr-4 cursor-pointer flex items-center justify-self-end"><svg
+                                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+                                aria-label="Save" class="x1lliihq x1n2onr6" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)"
+                                height="24" role="img" viewBox="0 0 24 24" width="24">
+                                <title>Save</title>
+                                <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="#000000"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></polygon>
+                            </svg></div>
+                    </div>
+                    <!--who liked-->
+                    <div class=" flex items-center ml-4 mt-5">
+                        <div class="absolute rounded-full w-5 h-5 z-10 flex items-center bg-black overflow-hidden"><img
+                                class="object-cover" src="../svgexport-9.jpg" alt=""></div>
+                        <div
+                            class="absolute rounded-full w-5 h-5 ml-3 z-20 flex items-center bg-black overflow-hidden ">
+                            <img class="object-cover" src="../PRI1.jpg" alt="">
+                        </div>
+                        <div
+                            class="absolute rounded-full w-5 h-5 z-30 ml-6 flex items-center bg-black overflow-hidden ">
+                            <img class="object-cover" src="../1247179.webp" alt="">
+                        </div>
+                        <!--names and cunt-->
+                        <span class=" ml-14"> liked by pat &. mat and <span id="likeCunt"></span> more</span>
+                    </div>
+                </div>
+            </div>
         </div>
-<span class="ml-5 w-4/5">Lorem ispansum dolor, sit amet consectetur adipisicing elit. Rerum molestiae assumenda ullam, esse dolores in perferendis sed totam ab vitae. Voluptatum autem reprehenderit ad quia impedit voluptatibus earum. Voluptate veritatis vitae earum!</span>
-  
-    
-        
 
-    
-        
-    
-    
-
-    </div>
-    <!--for like & save and who liked -->
-    <div class="h-28">
-        <!--like and save-->
-        <hr>
-        <div class="grid mt-3 grid-cols-2">
-<div class="ml-4 cursor-pointer flex items-center justify-self-start"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Unlike" class="x1lliihq x1n2onr6" color="rgb(255, 48, 64)" fill="rgb(255, 48, 64)" height="24" role="img" viewBox="0 0 48 48" width="24"><title>Unlike</title><path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z" fill="#FF3040"></path></svg></div>
-<div class="mr-4 cursor-pointer flex items-center justify-self-end" ><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Save" class="x1lliihq x1n2onr6" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><title>Save</title><polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></polygon></svg></div>
-        </div>
-        <!--who liked-->
-        <div class=" flex items-center ml-4 mt-5">
-           <div class="absolute rounded-full w-5 h-5 z-10 flex items-center bg-black overflow-hidden"><img class="object-cover" src="../svgexport-9.jpg" alt=""></div> 
-           <div class="absolute rounded-full w-5 h-5 ml-3 z-20 flex items-center bg-black overflow-hidden "><img class="object-cover" src="../PRI1.jpg" alt=""></div> 
-           <div class="absolute rounded-full w-5 h-5 z-30 ml-6 flex items-center bg-black overflow-hidden "><img class="object-cover" src="../1247179.webp" alt=""></div> 
-            <!--names and cunt-->
-        <span class=" ml-14"> liked by pat &. mat and 147 more</span>
-        </div>
-    </div>
-</div>
-</div>  
-
-</main>
+    </main>
 
 
 
 
 
-    <div id="sBlure" class="w-[18%] hidden   ml-10 brder border-r-2 h-screen xl:flex justify-start items-start flex-col fixed space-y-8">
-       
-      <a href="">
-       
-        <div class="flex cursor-pointer mt-14 flex-row space-x-5 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Instagram" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="29" role="img" viewBox="32 4 113 32" width="103"><path clip-rule="evenodd" d="M37.82 4.11c-2.32.97-4.86 3.7-5.66 7.13-1.02 4.34 3.21 6.17 3.56 5.57.4-.7-.76-.94-1-3.2-.3-2.9 1.05-6.16 2.75-7.58.32-.27.3.1.3.78l-.06 14.46c0 3.1-.13 4.07-.36 5.04-.23.98-.6 1.64-.33 1.9.32.28 1.68-.4 2.46-1.5a8.13 8.13 0 0 0 1.33-4.58c.07-2.06.06-5.33.07-7.19 0-1.7.03-6.71-.03-9.72-.02-.74-2.07-1.51-3.03-1.1Zm82.13 14.48a9.42 9.42 0 0 1-.88 3.75c-.85 1.72-2.63 2.25-3.39-.22-.4-1.34-.43-3.59-.13-5.47.3-1.9 1.14-3.35 2.53-3.22 1.38.13 2.02 1.9 1.87 5.16ZM96.8 28.57c-.02 2.67-.44 5.01-1.34 5.7-1.29.96-3 .23-2.65-1.72.31-1.72 1.8-3.48 4-5.64l-.01 1.66Zm-.35-10a10.56 10.56 0 0 1-.88 3.77c-.85 1.72-2.64 2.25-3.39-.22-.5-1.69-.38-3.87-.13-5.25.33-1.78 1.12-3.44 2.53-3.44 1.38 0 2.06 1.5 1.87 5.14Zm-13.41-.02a9.54 9.54 0 0 1-.87 3.8c-.88 1.7-2.63 2.24-3.4-.23-.55-1.77-.36-4.2-.13-5.5.34-1.95 1.2-3.32 2.53-3.2 1.38.14 2.04 1.9 1.87 5.13Zm61.45 1.81c-.33 0-.49.35-.61.93-.44 2.02-.9 2.48-1.5 2.48-.66 0-1.26-1-1.42-3-.12-1.58-.1-4.48.06-7.37.03-.59-.14-1.17-1.73-1.75-.68-.25-1.68-.62-2.17.58a29.65 29.65 0 0 0-2.08 7.14c0 .06-.08.07-.1-.06-.07-.87-.26-2.46-.28-5.79 0-.65-.14-1.2-.86-1.65-.47-.3-1.88-.81-2.4-.2-.43.5-.94 1.87-1.47 3.48l-.74 2.2.01-4.88c0-.5-.34-.67-.45-.7a9.54 9.54 0 0 0-1.8-.37c-.48 0-.6.27-.6.67 0 .05-.08 4.65-.08 7.87v.46c-.27 1.48-1.14 3.49-2.09 3.49s-1.4-.84-1.4-4.68c0-2.24.07-3.21.1-4.83.02-.94.06-1.65.06-1.81-.01-.5-.87-.75-1.27-.85-.4-.09-.76-.13-1.03-.11-.4.02-.67.27-.67.62v.55a3.71 3.71 0 0 0-1.83-1.49c-1.44-.43-2.94-.05-4.07 1.53a9.31 9.31 0 0 0-1.66 4.73c-.16 1.5-.1 3.01.17 4.3-.33 1.44-.96 2.04-1.64 2.04-.99 0-1.7-1.62-1.62-4.4.06-1.84.42-3.13.82-4.99.17-.8.04-1.2-.31-1.6-.32-.37-1-.56-1.99-.33-.7.16-1.7.34-2.6.47 0 0 .05-.21.1-.6.23-2.03-1.98-1.87-2.69-1.22-.42.39-.7.84-.82 1.67-.17 1.3.9 1.91.9 1.91a22.22 22.22 0 0 1-3.4 7.23v-.7c-.01-3.36.03-6 .05-6.95.02-.94.06-1.63.06-1.8 0-.36-.22-.5-.66-.67-.4-.16-.86-.26-1.34-.3-.6-.05-.97.27-.96.65v.52a3.7 3.7 0 0 0-1.84-1.49c-1.44-.43-2.94-.05-4.07 1.53a10.1 10.1 0 0 0-1.66 4.72c-.15 1.57-.13 2.9.09 4.04-.23 1.13-.89 2.3-1.63 2.3-.95 0-1.5-.83-1.5-4.67 0-2.24.07-3.21.1-4.83.02-.94.06-1.65.06-1.81 0-.5-.87-.75-1.27-.85-.42-.1-.79-.13-1.06-.1-.37.02-.63.35-.63.6v.56a3.7 3.7 0 0 0-1.84-1.49c-1.44-.43-2.93-.04-4.07 1.53-.75 1.03-1.35 2.17-1.66 4.7a15.8 15.8 0 0 0-.12 2.04c-.3 1.81-1.61 3.9-2.68 3.9-.63 0-1.23-1.21-1.23-3.8 0-3.45.22-8.36.25-8.83l1.62-.03c.68 0 1.29.01 2.19-.04.45-.02.88-1.64.42-1.84-.21-.09-1.7-.17-2.3-.18-.5-.01-1.88-.11-1.88-.11s.13-3.26.16-3.6c.02-.3-.35-.44-.57-.53a7.77 7.77 0 0 0-1.53-.44c-.76-.15-1.1 0-1.17.64-.1.97-.15 3.82-.15 3.82-.56 0-2.47-.11-3.02-.11-.52 0-1.08 2.22-.36 2.25l3.2.09-.03 6.53v.47c-.53 2.73-2.37 4.2-2.37 4.2.4-1.8-.42-3.15-1.87-4.3-.54-.42-1.6-1.22-2.79-2.1 0 0 .69-.68 1.3-2.04.43-.96.45-2.06-.61-2.3-1.75-.41-3.2.87-3.63 2.25a2.61 2.61 0 0 0 .5 2.66l.15.19c-.4.76-.94 1.78-1.4 2.58-1.27 2.2-2.24 3.95-2.97 3.95-.58 0-.57-1.77-.57-3.43 0-1.43.1-3.58.19-5.8.03-.74-.34-1.16-.96-1.54a4.33 4.33 0 0 0-1.64-.69c-.7 0-2.7.1-4.6 5.57-.23.69-.7 1.94-.7 1.94l.04-6.57c0-.16-.08-.3-.27-.4a4.68 4.68 0 0 0-1.93-.54c-.36 0-.54.17-.54.5l-.07 10.3c0 .78.02 1.69.1 2.09.08.4.2.72.36.91.15.2.33.34.62.4.28.06 1.78.25 1.86-.32.1-.69.1-1.43.89-4.2 1.22-4.31 2.82-6.42 3.58-7.16.13-.14.28-.14.27.07l-.22 5.32c-.2 5.37.78 6.36 2.17 6.36 1.07 0 2.58-1.06 4.2-3.74l2.7-4.5 1.58 1.46c1.28 1.2 1.7 2.36 1.42 3.45-.21.83-1.02 1.7-2.44.86-.42-.25-.6-.44-1.01-.71-.23-.15-.57-.2-.78-.04-.53.4-.84.92-1.01 1.55-.17.61.45.94 1.09 1.22.55.25 1.74.47 2.5.5 2.94.1 5.3-1.42 6.94-5.34.3 3.38 1.55 5.3 3.72 5.3 1.45 0 2.91-1.88 3.55-3.72.18.75.45 1.4.8 1.96 1.68 2.65 4.93 2.07 6.56-.18.5-.69.58-.94.58-.94a3.07 3.07 0 0 0 2.94 2.87c1.1 0 2.23-.52 3.03-2.31.09.2.2.38.3.56 1.68 2.65 4.93 2.07 6.56-.18l.2-.28.05 1.4-1.5 1.37c-2.52 2.3-4.44 4.05-4.58 6.09-.18 2.6 1.93 3.56 3.53 3.69a4.5 4.5 0 0 0 4.04-2.11c.78-1.15 1.3-3.63 1.26-6.08l-.06-3.56a28.55 28.55 0 0 0 5.42-9.44s.93.01 1.92-.05c.32-.02.41.04.35.27-.07.28-1.25 4.84-.17 7.88.74 2.08 2.4 2.75 3.4 2.75 1.15 0 2.26-.87 2.85-2.17l.23.42c1.68 2.65 4.92 2.07 6.56-.18.37-.5.58-.94.58-.94.36 2.2 2.07 2.88 3.05 2.88 1.02 0 2-.42 2.78-2.28.03.82.08 1.49.16 1.7.05.13.34.3.56.37.93.34 1.88.18 2.24.11.24-.05.43-.25.46-.75.07-1.33.03-3.56.43-5.21.67-2.79 1.3-3.87 1.6-4.4.17-.3.36-.35.37-.03.01.64.04 2.52.3 5.05.2 1.86.46 2.96.65 3.3.57 1 1.27 1.05 1.83 1.05.36 0 1.12-.1 1.05-.73-.03-.31.02-2.22.7-4.96.43-1.79 1.15-3.4 1.41-4 .1-.21.15-.04.15 0-.06 1.22-.18 5.25.32 7.46.68 2.98 2.65 3.32 3.34 3.32 1.47 0 2.67-1.12 3.07-4.05.1-.7-.05-1.25-.48-1.25Z" fill="currentColor" fill-rule="evenodd"></path></svg></div>
-       </a> 
-       <a href="">
-        <div class="flex cursor-pointer mt-20 flex-row space-x-5 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Home" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M9.005 16.545a2.997 2.997 0 0 1 2.997-2.997A2.997 2.997 0 0 1 15 16.545V22h7V11.543L12 2 2 11.543V22h7.005Z" fill="none" stroke="#000000" stroke-linejoin="round" stroke-width="2px"></path></svg><span>Home</span></div>
+    <div id="sBlure"
+        class="w-[18%] hidden  cancel ml-10 brder border-r-2 h-screen xl:flex justify-start items-start flex-col fixed space-y-8">
+
+        <a href="">
+
+            <div class="flex cursor-pointer mt-14 flex-row space-x-5 items-center"><svg
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Instagram"
+                    class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="29" role="img" viewBox="32 4 113 32"
+                    width="103">
+                    <path clip-rule="evenodd"
+                        d="M37.82 4.11c-2.32.97-4.86 3.7-5.66 7.13-1.02 4.34 3.21 6.17 3.56 5.57.4-.7-.76-.94-1-3.2-.3-2.9 1.05-6.16 2.75-7.58.32-.27.3.1.3.78l-.06 14.46c0 3.1-.13 4.07-.36 5.04-.23.98-.6 1.64-.33 1.9.32.28 1.68-.4 2.46-1.5a8.13 8.13 0 0 0 1.33-4.58c.07-2.06.06-5.33.07-7.19 0-1.7.03-6.71-.03-9.72-.02-.74-2.07-1.51-3.03-1.1Zm82.13 14.48a9.42 9.42 0 0 1-.88 3.75c-.85 1.72-2.63 2.25-3.39-.22-.4-1.34-.43-3.59-.13-5.47.3-1.9 1.14-3.35 2.53-3.22 1.38.13 2.02 1.9 1.87 5.16ZM96.8 28.57c-.02 2.67-.44 5.01-1.34 5.7-1.29.96-3 .23-2.65-1.72.31-1.72 1.8-3.48 4-5.64l-.01 1.66Zm-.35-10a10.56 10.56 0 0 1-.88 3.77c-.85 1.72-2.64 2.25-3.39-.22-.5-1.69-.38-3.87-.13-5.25.33-1.78 1.12-3.44 2.53-3.44 1.38 0 2.06 1.5 1.87 5.14Zm-13.41-.02a9.54 9.54 0 0 1-.87 3.8c-.88 1.7-2.63 2.24-3.4-.23-.55-1.77-.36-4.2-.13-5.5.34-1.95 1.2-3.32 2.53-3.2 1.38.14 2.04 1.9 1.87 5.13Zm61.45 1.81c-.33 0-.49.35-.61.93-.44 2.02-.9 2.48-1.5 2.48-.66 0-1.26-1-1.42-3-.12-1.58-.1-4.48.06-7.37.03-.59-.14-1.17-1.73-1.75-.68-.25-1.68-.62-2.17.58a29.65 29.65 0 0 0-2.08 7.14c0 .06-.08.07-.1-.06-.07-.87-.26-2.46-.28-5.79 0-.65-.14-1.2-.86-1.65-.47-.3-1.88-.81-2.4-.2-.43.5-.94 1.87-1.47 3.48l-.74 2.2.01-4.88c0-.5-.34-.67-.45-.7a9.54 9.54 0 0 0-1.8-.37c-.48 0-.6.27-.6.67 0 .05-.08 4.65-.08 7.87v.46c-.27 1.48-1.14 3.49-2.09 3.49s-1.4-.84-1.4-4.68c0-2.24.07-3.21.1-4.83.02-.94.06-1.65.06-1.81-.01-.5-.87-.75-1.27-.85-.4-.09-.76-.13-1.03-.11-.4.02-.67.27-.67.62v.55a3.71 3.71 0 0 0-1.83-1.49c-1.44-.43-2.94-.05-4.07 1.53a9.31 9.31 0 0 0-1.66 4.73c-.16 1.5-.1 3.01.17 4.3-.33 1.44-.96 2.04-1.64 2.04-.99 0-1.7-1.62-1.62-4.4.06-1.84.42-3.13.82-4.99.17-.8.04-1.2-.31-1.6-.32-.37-1-.56-1.99-.33-.7.16-1.7.34-2.6.47 0 0 .05-.21.1-.6.23-2.03-1.98-1.87-2.69-1.22-.42.39-.7.84-.82 1.67-.17 1.3.9 1.91.9 1.91a22.22 22.22 0 0 1-3.4 7.23v-.7c-.01-3.36.03-6 .05-6.95.02-.94.06-1.63.06-1.8 0-.36-.22-.5-.66-.67-.4-.16-.86-.26-1.34-.3-.6-.05-.97.27-.96.65v.52a3.7 3.7 0 0 0-1.84-1.49c-1.44-.43-2.94-.05-4.07 1.53a10.1 10.1 0 0 0-1.66 4.72c-.15 1.57-.13 2.9.09 4.04-.23 1.13-.89 2.3-1.63 2.3-.95 0-1.5-.83-1.5-4.67 0-2.24.07-3.21.1-4.83.02-.94.06-1.65.06-1.81 0-.5-.87-.75-1.27-.85-.42-.1-.79-.13-1.06-.1-.37.02-.63.35-.63.6v.56a3.7 3.7 0 0 0-1.84-1.49c-1.44-.43-2.93-.04-4.07 1.53-.75 1.03-1.35 2.17-1.66 4.7a15.8 15.8 0 0 0-.12 2.04c-.3 1.81-1.61 3.9-2.68 3.9-.63 0-1.23-1.21-1.23-3.8 0-3.45.22-8.36.25-8.83l1.62-.03c.68 0 1.29.01 2.19-.04.45-.02.88-1.64.42-1.84-.21-.09-1.7-.17-2.3-.18-.5-.01-1.88-.11-1.88-.11s.13-3.26.16-3.6c.02-.3-.35-.44-.57-.53a7.77 7.77 0 0 0-1.53-.44c-.76-.15-1.1 0-1.17.64-.1.97-.15 3.82-.15 3.82-.56 0-2.47-.11-3.02-.11-.52 0-1.08 2.22-.36 2.25l3.2.09-.03 6.53v.47c-.53 2.73-2.37 4.2-2.37 4.2.4-1.8-.42-3.15-1.87-4.3-.54-.42-1.6-1.22-2.79-2.1 0 0 .69-.68 1.3-2.04.43-.96.45-2.06-.61-2.3-1.75-.41-3.2.87-3.63 2.25a2.61 2.61 0 0 0 .5 2.66l.15.19c-.4.76-.94 1.78-1.4 2.58-1.27 2.2-2.24 3.95-2.97 3.95-.58 0-.57-1.77-.57-3.43 0-1.43.1-3.58.19-5.8.03-.74-.34-1.16-.96-1.54a4.33 4.33 0 0 0-1.64-.69c-.7 0-2.7.1-4.6 5.57-.23.69-.7 1.94-.7 1.94l.04-6.57c0-.16-.08-.3-.27-.4a4.68 4.68 0 0 0-1.93-.54c-.36 0-.54.17-.54.5l-.07 10.3c0 .78.02 1.69.1 2.09.08.4.2.72.36.91.15.2.33.34.62.4.28.06 1.78.25 1.86-.32.1-.69.1-1.43.89-4.2 1.22-4.31 2.82-6.42 3.58-7.16.13-.14.28-.14.27.07l-.22 5.32c-.2 5.37.78 6.36 2.17 6.36 1.07 0 2.58-1.06 4.2-3.74l2.7-4.5 1.58 1.46c1.28 1.2 1.7 2.36 1.42 3.45-.21.83-1.02 1.7-2.44.86-.42-.25-.6-.44-1.01-.71-.23-.15-.57-.2-.78-.04-.53.4-.84.92-1.01 1.55-.17.61.45.94 1.09 1.22.55.25 1.74.47 2.5.5 2.94.1 5.3-1.42 6.94-5.34.3 3.38 1.55 5.3 3.72 5.3 1.45 0 2.91-1.88 3.55-3.72.18.75.45 1.4.8 1.96 1.68 2.65 4.93 2.07 6.56-.18.5-.69.58-.94.58-.94a3.07 3.07 0 0 0 2.94 2.87c1.1 0 2.23-.52 3.03-2.31.09.2.2.38.3.56 1.68 2.65 4.93 2.07 6.56-.18l.2-.28.05 1.4-1.5 1.37c-2.52 2.3-4.44 4.05-4.58 6.09-.18 2.6 1.93 3.56 3.53 3.69a4.5 4.5 0 0 0 4.04-2.11c.78-1.15 1.3-3.63 1.26-6.08l-.06-3.56a28.55 28.55 0 0 0 5.42-9.44s.93.01 1.92-.05c.32-.02.41.04.35.27-.07.28-1.25 4.84-.17 7.88.74 2.08 2.4 2.75 3.4 2.75 1.15 0 2.26-.87 2.85-2.17l.23.42c1.68 2.65 4.92 2.07 6.56-.18.37-.5.58-.94.58-.94.36 2.2 2.07 2.88 3.05 2.88 1.02 0 2-.42 2.78-2.28.03.82.08 1.49.16 1.7.05.13.34.3.56.37.93.34 1.88.18 2.24.11.24-.05.43-.25.46-.75.07-1.33.03-3.56.43-5.21.67-2.79 1.3-3.87 1.6-4.4.17-.3.36-.35.37-.03.01.64.04 2.52.3 5.05.2 1.86.46 2.96.65 3.3.57 1 1.27 1.05 1.83 1.05.36 0 1.12-.1 1.05-.73-.03-.31.02-2.22.7-4.96.43-1.79 1.15-3.4 1.41-4 .1-.21.15-.04.15 0-.06 1.22-.18 5.25.32 7.46.68 2.98 2.65 3.32 3.34 3.32 1.47 0 2.67-1.12 3.07-4.05.1-.7-.05-1.25-.48-1.25Z"
+                        fill="currentColor" fill-rule="evenodd"></path>
+                </svg></div>
+        </a>
+        <a href="{% url 'home:home' %}">
+            <div class="flex cursor-pointer mt-16 flex-row space-x-5 items-center"><svg
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Home"
+                    class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24"
+                    width="24">
+                    <path
+                        d="M9.005 16.545a2.997 2.997 0 0 1 2.997-2.997A2.997 2.997 0 0 1 15 16.545V22h7V11.543L12 2 2 11.543V22h7.005Z"
+                        fill="none" stroke="#000000" stroke-linejoin="round" stroke-width="2px"></path>
+                </svg><span>Home</span></div>
         </a>
         <a href="">
-        <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Search" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></path><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="16.511" x2="22" y1="16.511" y2="22"></line></svg><span>Search</span></div>
+            <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Search"
+                    class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24"
+                    width="24">
+                    <path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="#000000"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></path>
+                    <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"
+                        x1="16.511" x2="22" y1="16.511" y2="22"></line>
+                </svg><span>Search</span></div>
         </a>
         <a href="">
-        <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Explore" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><polygon fill="none" points="13.941 13.953 7.581 16.424 10.06 10.056 16.42 7.585 13.941 13.953" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></polygon><polygon fill-rule="evenodd" points="10.06 10.056 13.949 13.945 7.581 16.424 10.06 10.056"></polygon><circle cx="12.001" cy="12.005" fill="none" r="10.5" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></circle></svg><span>Explore</span></div>
-    </a>
-    <a href="">
-        
-        <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Reels" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-width="2px" x1="2.049" x2="21.95" y1="7.002" y2="7.002"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="13.504" x2="16.362" y1="2.001" y2="7.002"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="7.207" x2="10.002" y1="2.11" y2="7.002"></line><path d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></path><path d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z" fill-rule="evenodd"></path></svg><span>Reels</span></div>
-    </a>
-    <a href="">
-        <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Messenger" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M12.003 2.001a9.705 9.705 0 1 1 0 19.4 10.876 10.876 0 0 1-2.895-.384.798.798 0 0 0-.533.04l-1.984.876a.801.801 0 0 1-1.123-.708l-.054-1.78a.806.806 0 0 0-.27-.569 9.49 9.49 0 0 1-3.14-7.175 9.65 9.65 0 0 1 10-9.7Z" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="1.739px"></path><path d="M17.79 10.132a.659.659 0 0 0-.962-.873l-2.556 2.05a.63.63 0 0 1-.758.002L11.06 9.47a1.576 1.576 0 0 0-2.277.42l-2.567 3.98a.659.659 0 0 0 .961.875l2.556-2.049a.63.63 0 0 1 .759-.002l2.452 1.84a1.576 1.576 0 0 0 2.278-.42Z" fill-rule="evenodd"></path></svg><span>Messages</span></div>
-    </a>
-    <a href="">
-        <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="New post" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></path><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line></svg><span>Create</span></div>
-    </a>
-    <a href="">
-        <div class="flex cursor-pointer flex-row space-x-5 items-center">  <div class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  "> <img  class=" object-cover "  src="../download.jfif" alt="profile-pictures"> </div><h3>Profile</h3></div>
-    </a>
+            <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Explore"
+                    class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24"
+                    width="24">
+                    <polygon fill="none" points="13.941 13.953 7.581 16.424 10.06 10.056 16.42 7.585 13.941 13.953"
+                        stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></polygon>
+                    <polygon fill-rule="evenodd" points="10.06 10.056 13.949 13.945 7.581 16.424 10.06 10.056">
+                    </polygon>
+                    <circle cx="12.001" cy="12.005" fill="none" r="10.5" stroke="#000000" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2px"></circle>
+                </svg><span>Explore</span></div>
+        </a>
+        <a href="">
 
-      
-        <div class=" pt-24 flex cursor-pointer flex-row space-x-3 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Settings" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="3" x2="21" y1="4" y2="4"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="3" x2="21" y1="12" y2="12"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="3" x2="21" y1="20" y2="20"></line></svg> <span>More</span>
-    
-        
-    
-    
-    
+            <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Reels"
+                    class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24"
+                    width="24">
+                    <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-width="2px" x1="2.049" x2="21.95"
+                        y1="7.002" y2="7.002"></line>
+                    <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"
+                        x1="13.504" x2="16.362" y1="2.001" y2="7.002"></line>
+                    <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"
+                        x1="7.207" x2="10.002" y1="2.11" y2="7.002"></line>
+                    <path
+                        d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z"
+                        fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px">
+                    </path>
+                    <path
+                        d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z"
+                        fill-rule="evenodd"></path>
+                </svg><span>Reels</span></div>
+        </a>
+        <a href="">
+            <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Messenger"
+                    class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24"
+                    width="24">
+                    <path
+                        d="M12.003 2.001a9.705 9.705 0 1 1 0 19.4 10.876 10.876 0 0 1-2.895-.384.798.798 0 0 0-.533.04l-1.984.876a.801.801 0 0 1-1.123-.708l-.054-1.78a.806.806 0 0 0-.27-.569 9.49 9.49 0 0 1-3.14-7.175 9.65 9.65 0 0 1 10-9.7Z"
+                        fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="1.739px"></path>
+                    <path
+                        d="M17.79 10.132a.659.659 0 0 0-.962-.873l-2.556 2.05a.63.63 0 0 1-.758.002L11.06 9.47a1.576 1.576 0 0 0-2.277.42l-2.567 3.98a.659.659 0 0 0 .961.875l2.556-2.049a.63.63 0 0 1 .759-.002l2.452 1.84a1.576 1.576 0 0 0 2.278-.42Z"
+                        fill-rule="evenodd"></path>
+                </svg><span>Messages</span></div>
+        </a>
+        <a href="">
+            <div class="flex cursor-pointer flex-row space-x-5 items-center"><svg
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="New post"
+                    class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24"
+                    width="24">
+                    <path
+                        d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z"
+                        fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px">
+                    </path>
+                    <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"
+                        x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line>
+                    <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"
+                        x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
+                </svg><span>Create</span></div>
+        </a>
+        <a href="{% url 'accounts:user_profile' user.id %}">
+            <div class="flex cursor-pointer flex-row space-x-5 items-center">
+                {% if user.profile.image %}
+                <div class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  "> <img class=" object-cover "
+                        src="{{ user.profile.image.url }}" alt="profile-pictures"> </div>
+                <h3>Profile</h3>
+                {% endif %}
+            </div>
+        </a>
+
+
+        <div class="  pt-14 flex cursor-pointer flex-row space-x-3 items-center"><svg
+                xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Settings"
+                class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24"
+                width="24">
+                <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"
+                    x1="3" x2="21" y1="4" y2="4"></line>
+                <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"
+                    x1="3" x2="21" y1="12" y2="12"></line>
+                <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"
+                    x1="3" x2="21" y1="20" y2="20"></line>
+            </svg> <span>More</span>
+
+
+
+
+
         </div>
-    </div> <div class="flex">
-    <div class="w-[39%] hidden  xl:block  h-[1300px]"></div>
-  <div id="blure" class="min-h-[1300px]  max-w-[640px] overflow-ellipsis md:mx-auto lg:mx-auto sm:mx-auto xl:mx-auto bg-white flex flex-col md:max-w-screen-md sm:max-w-screen-sm lg:max-w-5xl xl:max-w-7xl ">
+    </div>
+    <div class="flex">
+        <div class="w-[39%] hidden  xl:block  h-[1300px]"></div>
+        <div id="blure"
+            class="min-h-[1300px] w-full  cancel overflow-ellipsis md:mx-auto lg:mx-auto sm:mx-auto xl:mx-auto bg-white flex flex-col md:max-w-screen-md sm:max-w-screen-sm lg:max-w-5xl xl:max-w-7xl ">
 
-    <div class="w-[90%]  xl:hidden mx-auto flex mt-2  ">
-    
-            <div class="mr-2"><svg id="clickMenu" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Settings" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="3" x2="21" y1="4" y2="4"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="3" x2="21" y1="12" y2="12"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="3" x2="21" y1="20" y2="20"></line></svg>
-    </div>
-   <div class="w-2/3"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="New post" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></path><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line></svg></div>
-       <div class="w-full grid grid-cols-2 content-center justify-items-end items-end justify-end"><svg style="margin: 0 -25px 5px 0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Down chevron icon" class="x1lliihq x1n2onr6" color="rgb(168, 168, 168)" fill="rgb(168, 168, 168)" height="12" role="img" viewBox="0 0 24 24" width="12"><title>Down chevron icon</title><path d="M21 17.502a.997.997 0 0 1-.707-.293L12 8.913l-8.293 8.296a1 1 0 1 1-1.414-1.414l9-9.004a1.03 1.03 0 0 1 1.414 0l9 9.004A1 1 0 0 1 21 17.502Z" fill="#A8A8A8"></path></svg> <h2 id="userA" class="justify-self-end inline ">user name</h2></div>
-    </div>
-    <header class="w-[90%]   xl:mt-12 mt-8 flex mx-auto "> 
-    <div class="flex xl:justify-center h-24 w-full bg-white flex-wrap min-w-fit  ">
-            <div class="rounded-full   justify-center flex-wrap flex xl:-mr-9  overflow-hidden w-[77px] h-[77px]  "><img id="profilePicture" class=" object-cover bg-inherit"  src="../download.jfif" alt="profile-picture"></div>
-            <div class="flex mr-7 ml-5 md:mr-14 sm:mr-10 justify-center  content-between flex-col items-center md:font-semibold md:ml-28 sm:ml-20">
-             
-                <span id="postcunt" class="-mb-2">0</span>
-                <span>Posts</span>
-            </div>
-            <div class="flex mr-7  md:mr-14  sm:mr-10  justify-center  content-between flex-col items-center md:font-semibold ">
-                <span id="Fllowers" class="-mb-2">0</span>
-                <span>Fllowers</span>
-            </div>
-            <div class="flex mr-7 md:mr-14  sm:mr-10  justify-center  content-start flex-col items-center md:font-semibold">
-                <span id="Fllowing" class="-mb-2">0</span>
-                <span>Fllowing</span>
-            </div>
-     </div>
+            <div class="w-[90%]  xl:hidden mx-auto flex mt-2  ">
 
-    </header> 
-    <div class="w-[90%]  grid xl:justify-center   mx-auto -mt-3 md:mt-2">
-        <h3  class="  font-bold">name---lorem
-        </h3>
-        <p  class="text-slate-500   -mt-2">Programer</p>
-        <div  class="font-semibold max-w-[29rem] sm:w-[28rem] md:w-[32rem]  lg:w-[32rem] xl:w-[33rem] overflow-visible -mt-1">
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat amet enim esse quisquam commodi corporis odio asperiores, voluptate quas culpa adipisci id illum optio dolorem maiores delectus aperiam temporibus fuga eaque perferendis illo reiciendis! Magni architecto dolorem similique fugiat accusantium ipsum ex iste velit porro?</p>
-        </div>
-    </div>
-    <br>
-    <br>
-    <div class="flex w-full justify-center space-x-2">
-<a id="spa" class="nav-link flex nav-link items-center justify-center font-bold w-[28%] rounded-md border h-8 bg-gray-100" href="/editeProfile">Edite profile </a>
-        <button class="flex items-center justify-center font-bold w-[28%] rounded-md border h-8">view archive</button>
-    </div>
-    <br>
-    
-    <div class="w-full   flex flex-row justify-center ">
-        <div id="iconPost" class="w-1/2 scale-150 h-10 items-center flex justify-center content-center "><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="" class="_ab6-" color="rgb(115, 115, 115)" fill="rgb(115, 115, 115)" height="12" role="img" viewBox="0 0 24 24" width="12"><rect fill="none" height="18" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" width="18" x="3" y="3"></rect><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="9.015" x2="9.015" y1="3" y2="21"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="14.985" x2="14.985" y1="3" y2="21"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="21" x2="3" y1="9.015" y2="9.015"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="21" x2="3" y1="14.985" y2="14.985"></line></svg></div>
-        <div id="iconSave" class="w-1/2 scale-150 items-center h-10 flex justify-center content-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="" class="_ab6-" color="rgb(168, 168, 168)" fill="rgb(168, 168, 168)" height="12" role="img" viewBox="0 0 24 24" width="12"><polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="#A8A8A8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></polygon></svg></div>
-    
-    
-    
-       
-    </div>
-    <div id="forhr" class="flex justify-start w-full">
-     <hr   class="w-1/2 transition-all duration-300 ease-in-out bg-slate-400 h-[1.5px]">
-  
-    </div>
-    <div id="postBox" class="grid max-w-[114rem] grid-cols-1 mt-1 space-x-1   border border-white"></div>
-    <div id="postBoxSave" class=" max-w-[114rem] hidden grid-cols-3 mt-1 space-x-1  border border-white">
-        <div class="bg-black overflow-hidden">
-            <img class="md:object-cover  "  src="/1247179.webp" alt="#">
-        
+                <div class="mr-2"><svg id="clickMenu" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns="http://www.w3.org/2000/svg" aria-label="Settings" class="_ab6-" color="rgb(0, 0, 0)"
+                        fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24">
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="3" x2="21" y1="4" y2="4"></line>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="3" x2="21" y1="12" y2="12"></line>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="3" x2="21" y1="20" y2="20"></line>
+                    </svg>
+                </div>
+                <div class="w-2/3"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+                        aria-label="New post" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24"
+                        role="img" viewBox="0 0 24 24" width="24">
+                        <path
+                            d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z"
+                            fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px"></path>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
+                    </svg></div>
+                <div class="w-full grid grid-cols-2 content-center justify-items-end items-end justify-end"><svg
+                        style="margin: 0 -25px 5px 0" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns="http://www.w3.org/2000/svg" aria-label="Down chevron icon" class="x1lliihq x1n2onr6"
+                        color="rgb(168, 168, 168)" fill="rgb(168, 168, 168)" height="12" role="img" viewBox="0 0 24 24"
+                        width="12">
+                        <title>Down chevron icon</title>
+                        <path
+                            d="M21 17.502a.997.997 0 0 1-.707-.293L12 8.913l-8.293 8.296a1 1 0 1 1-1.414-1.414l9-9.004a1.03 1.03 0 0 1 1.414 0l9 9.004A1 1 0 0 1 21 17.502Z"
+                            fill="#A8A8A8"></path>
+                    </svg>
+                    <h2 id="userA" class="justify-self-end inline ">{{ user.username }}</h2>
+                </div>
             </div>
-            <div class="bg-black overflow-hidden">
-                <img class="md:object-cover  "  src="/PRI1.jpg" alt="#" >
-            
+            <header class="w-[90%]   xl:mt-12 mt-8 flex mx-auto ">
+                <div class="flex xl:justify-center h-24 w-full bg-white flex-wrap min-w-fit">
+
+                    {% if user.profile.image %}
+                    <div
+                        class="rounded-full justify-center flex-wrap flex xl:-mr-9  overflow-hidden w-[77px] h-[77px]  ">
+                        <img id="profilePicture" class=" object-cover bg-inherit" src="{{ user.profile.image.url }}"
+                            alt="profile-picture">
+                    </div>
+                    {% endif %}
+
+                    <div
+                        class="flex mr-4 ml-2 md:mr-14 sm:mr-10 justify-center  content-between flex-col items-center md:font-semibold md:ml-28 sm:ml-20">
+
+                        <span id="postcunt" class="-mb-2">{{ user.posts.all|length }}</span>
+                        <span>Posts</span>
+                    </div>
+                    <div
+                        class="flex mr-4  md:mr-14  sm:mr-10  justify-center  content-between flex-col items-center md:font-semibold ">
+                        <span id="Fllowers" class="-mb-2">{{ user.follower.all|length }}</span>
+                        <span>Followers</span>
+                    </div>
+                    <div
+                        class="flex  md:mr-14  sm:mr-10  justify-center  content-start flex-col items-center md:font-semibold">
+                        <span id="Fllowing" class="-mb-2">{{ user.following.all|length }}</span>
+                        <span>Following</span>
+                    </div>
                 </div>
 
+            </header>
+            <div class="w-[90%]  grid xl:justify-center   mx-auto -mt-3 md:mt-2">
+                <h3 class="  font-bold">{{ user.username }}</h3>
+                <p class="text-slate-500   -mt-2">Programmer</p>
+                <div
+                    class="font-semibold max-w-[29rem] sm:w-[28rem] md:w-[32rem]  lg:w-[32rem] xl:w-[33rem] overflow-visible -mt-1">
+                    {% if user.profile.bio %}
+                    <p>{{ user.profile.bio|linebreaks }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="flex w-full justify-center space-x-2">
+                {% if request.user == user %}
+                <a id="spa"
+                    class="nav-link flex nav-link items-center justify-center font-bold w-[28%] rounded-md border h-8 bg-gray-100"
+                    href="{% url 'accounts:edit_profile' user.id %}">Edit profile
+                </a>
+                {% else %}
+                {% if is_following %}
+                <a id="spa"
+                    class="nav-link flex nav-link items-center justify-center font-bold w-[28%] rounded-md border h-8 bg-blue"
+                    href="{% url 'accounts:unfollow_user' user.id %}">Unfollow
+                </a>
+                {% else %}
+                <a id="spa"
+                    class="nav-link flex nav-link items-center justify-center font-bold w-[28%] rounded-md border h-8 bg-blue"
+                    href="{% url 'accounts:follow_user' user.id %}">Follow
+                </a>
+                {% endif %}
+                {% endif %}
+                <button class="flex items-center justify-center font-bold w-[28%] rounded-md border h-8">view
+                    archive</button>
+            </div>
+            <br>
+
+            <div class="w-full   flex flex-row justify-center ">
+                <div id="iconPost" class="w-1/2 scale-150 h-10 items-center flex justify-center content-center "><svg
+                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label=""
+                        class="_ab6-" color="rgb(115, 115, 115)" fill="rgb(115, 115, 115)" height="12" role="img"
+                        viewBox="0 0 24 24" width="12">
+                        <rect fill="none" height="18" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" width="18" x="3" y="3"></rect>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="9.015" x2="9.015" y1="3" y2="21"></line>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="14.985" x2="14.985" y1="3" y2="21"></line>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="21" x2="3" y1="9.015" y2="9.015"></line>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="21" x2="3" y1="14.985" y2="14.985"></line>
+                    </svg></div>
+                <div id="iconSave" class="w-1/2 scale-150 items-center h-10 flex justify-center content-center"><svg
+                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label=""
+                        class="_ab6-" color="rgb(168, 168, 168)" fill="rgb(168, 168, 168)" height="12" role="img"
+                        viewBox="0 0 24 24" width="12">
+                        <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="#A8A8A8"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></polygon>
+                    </svg></div>
+
+
+
+
+            </div>
+            <div id="forhr" class="flex justify-start w-full">
+                <hr class="w-1/2 transition-all duration-300 ease-in-out bg-slate-400 h-[1.5px]">
+
+            </div>
+            <div id="postBox" class="grid  max-w-[114rem] grid-cols-3 mt-1 space-x-1  gap-1  border border-white">
+                {% if user.posts.all %}
+                {% for post in user.posts.all %}
+                <div class="bg-black flex justify-center items-center overflow-hidden" id='post'>
+                    <img class="md:object-cover" src="{{ post.image.url }}" alt="#" />
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div id="postBoxSave" class="grid max-w-[114rem] grid-cols-3 mt-1 space-x-1  hidden border border-white">
+                {% if user.posts.all %}
+                {% for post in user.posts.all %}
+                <div style="
+                    background-image: url('https://127.0.0.1:8000/{{ post.image.url }}'); /* آدرس تصویر */
+                    background-size: cover; /* تنظیم اندازه تصویر */
+                    background-position: center; /* تنظیم موقعیت تصویر */" key="${da.id}"
+                    class=" w-full xl:h-80 lg:h-72 md:h-64 sm:h-52 h-48 overflow-hidden">
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <div id="buttombar"
+                class=" hidden  mx-auto  mt-80 w-full rounded-t-2xl  h-[30rem] flex-col  fixed bg-white  border-t border-black space-y-8">
+                <hr class="h-1 mt-1 bg-black rounded-lg w-1/12 mx-auto ">
+                <div class="flex ml-6 mt-10 cursor-pointer flex-row space-x-5 items-center"><svg
+                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Reels"
+                        class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img"
+                        viewBox="0 0 24 24" width="24">
+                        <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-width="2px" x1="2.049"
+                            x2="21.95" y1="7.002" y2="7.002"></line>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="13.504" x2="16.362" y1="2.001" y2="7.002"></line>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="7.207" x2="10.002" y1="2.11" y2="7.002"></line>
+                        <path
+                            d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z"
+                            fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px"></path>
+                        <path
+                            d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z"
+                            fill-rule="evenodd"></path>
+                    </svg><span>Reels</span>
+                </div>
+
+                <div class="flex ml-6  cursor-pointer flex-row space-x-5 items-center"><svg
+                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+                        aria-label="New post" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24"
+                        role="img" viewBox="0 0 24 24" width="24">
+                        <path
+                            d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z"
+                            fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px"></path>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line>
+                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2px" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
+                    </svg><span>Create</span></div>
+                <div class="flex ml-6 cursor-pointer flex-row space-x-5 items-center">
+                    {% if user.profile.image %}
+                    <div class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  ">
+                        <img class=" object-cover" src="{{ user.profile.image.url }}" alt="profile-pictures">
+                    </div>
+                    {% endif %}
+
+                    <h3>Profile</h3>
+                </div>
+            </div>
+        </div>
     </div>
-   
-    </div>
-    <div id="buttombar" class=" hidden  mx-auto  mt-80 w-full rounded-t-2xl  h-[30rem] flex-col  fixed bg-white  border-t border-black space-y-8">
-        <hr class="h-1 mt-1 bg-black rounded-lg w-1/12 mx-auto ">
-          <div class="flex ml-6 mt-10 cursor-pointer flex-row space-x-5 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Reels" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-width="2px" x1="2.049" x2="21.95" y1="7.002" y2="7.002"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="13.504" x2="16.362" y1="2.001" y2="7.002"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="7.207" x2="10.002" y1="2.11" y2="7.002"></line><path d="M2 12.001v3.449c0 2.849.698 4.006 1.606 4.945.94.908 2.098 1.607 4.946 1.607h6.896c2.848 0 4.006-.699 4.946-1.607.908-.939 1.606-2.096 1.606-4.945V8.552c0-2.848-.698-4.006-1.606-4.945C19.454 2.699 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.546 2 5.704 2 8.552Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></path><path d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z" fill-rule="evenodd"></path></svg><span>Reels</span></div>
-    <div class="flex ml-6  cursor-pointer flex-row space-x-5 items-center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="New post" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24"><path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></path><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line><line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line></svg><span>Create</span></div>
-          <div class="flex ml-6 cursor-pointer flex-row space-x-5 items-center">  <div class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  "> <img  class=" object-cover "  src="../download.jfif" alt="profile-pictures"> </div><h3>Profile</h3></div>
-          </div>
-</div>
 
 
 
 
+    <script type="module" src="./spa.js"></script>
+    <script src="{% static 'profile/src/profile.JS' %}"></script>
 
-<script type="module" src="./spa.js"></script>
-<script src="profile.JS"></script>
+
 </body>
+
 </html>

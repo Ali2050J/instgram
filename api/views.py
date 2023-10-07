@@ -7,6 +7,6 @@ from .serializers import PostListSerializer
 
 class PostListView(APIView):
     def get(self, request):
-        posts = Post.objects.all()
+        posts = Post.objects.all().order_by('id')
         srz_date = PostListSerializer(instance=posts, many=True)
         return Response(data=srz_date.data, status=status.HTTP_200_OK)

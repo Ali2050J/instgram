@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Crop Image</title>
+    <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.min.css">
+    <style>
+        .crop-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .crop-container img {
+            display: block;
+            max-width: 100%;
+        }
+        
+        .crop-overlay {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px dashed #000;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="crop-container">
+        <img style="width: 500px;" id="image" src="../download.jfif" alt="Your Image">
+        <div class="crop-overlay"></div>
+    </div>
+
+    <script src="https://unpkg.com/cropperjs/dist/cropper.min.js"></script>
+    <script>
+        const image = document.getElementById('image');
+        const cropContainer = document.querySelector('.crop-container');
+        const cropper = new Cropper(image, {
+            aspectRatio: 1,
+            viewMode: 1,
+            guides: false,
+            background: false,
+            cropBoxResizable: false,
+            crop(event) {
+                const cropData = cropper.getData();
+                document.querySelector('.teste').setAttribute('style','margin: -' + cropData.y + 'px 0 0 -'+ cropData.x +'px')
+                
+            }
+        });
+
+        cropContainer.addEventListener('mousedown', (event) => {
+            const overlay = document.querySelector('.crop-overlay');
+            const startX = event.pageX - cropContainer.offsetLeft;
+            const startY = event.pageY - cropContainer.offsetTop;
+            let width = 0;
+            let height = 0;
+            
+            overlay.style.left = startX + 'px';
+            overlay.style.top = startY + 'px';
+        
+            const mousemoveHandler = (event) => {
+                width = event.pageX - cropContainer.offsetLeft - startX;
+                height = event.pageY - cropContainer.offsetTop - startY;
+        
+                overlay.style.width = width + 'px';
+                overlay.style.height = height + 'px';
+            }
+        
+            const mouseupHandler = (event) => {
+                document.removeEventListener('mousemove', mousemoveHandler);
+                document.removeEventListener('mouseup', mouseupHandler);
+        
+                cropper.setCropBoxData({
+                    left: startX,
+                    top: startY,
+                    width,
+                    height
+                });
+            }
+        
+            document.addEventListener('mousemove', mousemoveHandler);
+            document.addEventListener('mouseup', mouseupHandler);
+        });
+    </script>
+    <div  style="width: 115px; height: 115px ; overflow: hidden;scale: 4; margin: auto;">
+    <img  class="teste" style="width: 1000px;" src="../download.jfif" alt="">
+</div>
+</body>
+</html>
