@@ -297,15 +297,14 @@
                         x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
                 </svg><span>Create</span></div>
         </a>
-        <a href="{% url 'accounts:user_profile' user.id %}">
-            <div class="flex cursor-pointer flex-row space-x-5 items-center">
-                {% if user.profile.image %}
-                <div class=" rounded-full  -ml-2   overflow-hidden w-10 h-10"
-                    style="background-image: url('127.0.0.1:8000{{ user.profile.image.url }}'); background-size: cover; background-position: center;">
-
-                </div>
+        <a href="">
+            <div class="flex cursor-pointer justify-center  flex-row space-x-5 items-center">
+                <div style=" 
+                    background-image: url('https://instagram.iran.liara.run/{{ request.user.profile.image }}'); /* آدرس تصویر */ 
+                    background-size: cover; /* تنظیم اندازه تصویر */ 
+                    background-position: center; /* تنظیم موقعیت تصویر */ 
+                    " class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  "></div>
                 <h3>Profile</h3>
-                {% endif %}
             </div>
         </a>
 
@@ -469,26 +468,19 @@
                 <hr class="w-1/2 transition-all duration-300 ease-in-out bg-slate-400 h-[1.5px]">
 
             </div>
-            <div id="postBox" class="grid  max-w-[114rem] grid-cols-3 mt-1 space-x-1  gap-1  border border-white"
+            <div id="postBox" class="grid max-w-[114rem] grid-cols-3 mt-1 gap-1 border border-white"
                 style="margin: 0 0 0 -110px;">
-                <!-- {% if user.posts.all %}
-                {% for post in user.posts.all %}
-                <div class="bg-black flex justify-center items-center overflow-hidden" id='post'>
-                    <img class="md:object-cover" src="{{ post.image.url }}" alt="#" />
-                </div>
-                {% endfor %}
-                {% endif %} -->
             </div>
-            <div id="postBoxSave" class="grid max-w-[114rem] grid-cols-3 mt-1 space-x-1  hidden border border-white"
+            <div id="postBoxSave" class="grid max-w-[114rem] grid-cols-3 mt-1 hidden border border-white"
                 style="margin: 0 0 0 -110px;">
                 {% if user.posts.all %}
                 {% for post in user.posts.all %}
                 <div style="
-                    background-image: url('https://127.0.0.1:8000/{{ post.image.url }}'); /* آدرس تصویر */
+                    background-image: url('https://instagram.iran.liara.run/{{ post.image.url }}'); /* آدرس تصویر */
                     background-size: cover; /* تنظیم اندازه تصویر */
                     background-position: center; /* تنظیم موقعیت تصویر */" key="${da.id}"
                     class=" w-full xl:h-80 lg:h-72 md:h-64 sm:h-52 h-48 overflow-hidden">
-                    <!-- <img class="md:object-cover" src="{{ post.image.url }}" alt="#" /> -->
+                    <img class="md:object-cover" src="{{ post.image.url }}" alt="#" />
                 </div>
                 {% endfor %}
                 {% endif %}
