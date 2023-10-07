@@ -300,7 +300,7 @@
         <a href="">
             <div class="flex cursor-pointer justify-center  flex-row space-x-5 items-center">
                 <div style=" 
-                    background-image: url('https://instagram.iran.liara.run/{{ request.user.profile.image }}'); /* آدرس تصویر */ 
+                    background-image: url('https://instagram.iran.liara.run/{{ request.user.profile.image.url }}'); /* آدرس تصویر */ 
                     background-size: cover; /* تنظیم اندازه تصویر */ 
                     background-position: center; /* تنظیم موقعیت تصویر */ 
                     " class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  "></div>
@@ -328,7 +328,7 @@
         </div>
     </div>
     <div class="flex">
-        <div class="w-[39%] hidden  xl:block  h-[1300px]"></div>
+        <div class="w-[20%] hidden  xl:block  h-[1300px]"></div>
         <div id="blure"
             class="min-h-[1300px] w-full  cancel overflow-ellipsis md:mx-auto lg:mx-auto sm:mx-auto xl:mx-auto bg-white flex flex-col md:max-w-screen-md sm:max-w-screen-sm lg:max-w-5xl xl:max-w-7xl ">
 
@@ -468,11 +468,9 @@
                 <hr class="w-1/2 transition-all duration-300 ease-in-out bg-slate-400 h-[1.5px]">
 
             </div>
-            <div id="postBox" class="grid max-w-[114rem] grid-cols-3 mt-1 gap-1 border border-white"
-                style="margin: 0 0 0 -110px;">
+            <div id="postBox" class="grid max-w-[114rem] grid-cols-3 mt-1 gap-1 border border-white">
             </div>
-            <div id="postBoxSave" class="grid max-w-[114rem] grid-cols-3 mt-1 hidden border border-white"
-                style="margin: 0 0 0 -110px;">
+            <div id="postBoxSave" class="grid max-w-[114rem] grid-cols-3 mt-1 gap-1 hidden border border-white">
                 {% if user.posts.all %}
                 {% for post in user.posts.all %}
                 <div style="
@@ -480,7 +478,6 @@
                     background-size: cover; /* تنظیم اندازه تصویر */
                     background-position: center; /* تنظیم موقعیت تصویر */" key="${da.id}"
                     class=" w-full xl:h-80 lg:h-72 md:h-64 sm:h-52 h-48 overflow-hidden">
-                    <img class="md:object-cover" src="{{ post.image.url }}" alt="#" />
                 </div>
                 {% endfor %}
                 {% endif %}
