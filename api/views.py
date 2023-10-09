@@ -17,24 +17,13 @@ class PostListView(APIView):
             post['type'] = 'post'
 
         return Response(data=srz_data_posts.data, status=status.HTTP_200_OK)
-    
-
-class FavoritePostListView(APIView):
-    def get(self, request):
-        favorite_posts = Favorite.objects.all().order_by('id')
-        srz_data_favorites = FavoritePostListSerializer(instance=favorite_posts, many=True)
-
-        for favorite_p in srz_data_favorites.data:
-            favorite_p['type'] = 'favorite'
-
-        return Response(data=srz_data_favorites.data, status=status.HTTP_200_OK)
-    
+ 
 
 class UserPostListView(APIView):
     def get(self, request, username):
         try:
             user = user = User.objects.get(username=username)
-            posts = Post.objects.filter(user=user)
+            posts = Post.objects.filter(user=user).order_by('id')
             srz_data_posts = PostListSerializer(instance=posts, many=True)
             return Response(data=srz_data_posts.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
@@ -45,9 +34,13 @@ class UserFavoritePostListView(APIView):
     def get(self, request, username):
         try:
             user = User.objects.get(username=username)
-            favorite_posts = get_object_or_404(Favorite, user=user).post.all()
+            favorite_posts = Favorite.objects.get(user=user).post.all().order_by('id')
             srz_data_favorite_posts = PostListSerializer(instance=favorite_posts, many=True)
             return Response(data=srz_data_favorite_posts.data, status=status.HTTP_200_OK)
+        
         except User.DoesNotExist:
-                return Response(data={f'{username}': 'This username does not exists.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={f'{username}': "This username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Favorite.DoesNotExist:
+            return Response(data={f'{username}': "This username doesn't have favorite posts."}, status=status.HTTP_404_NOT_FOUND)
         
