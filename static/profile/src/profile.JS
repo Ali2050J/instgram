@@ -10,18 +10,19 @@ const blure = $.getElementById('blure')
 const buttombar = $.getElementById('buttombar')
 const clickMenu = $.getElementById('clickMenu')
 const postBoxSave =$.getElementById('postBoxSave')
-const zBlure  = document.getElementById('zBlure')
-const editeInfo  = document.getElementById('editeInfo')
-const select  = document.getElementById('select')
-const openSelect = document.getElementById('openSelect')
-const openEditeInfo = document.getElementById('openEditeInfo')
-let cancelKey = document.querySelectorAll('.cancel')
-const main = document.getElementById('main')
- const sBlure = document.getElementById('sBlure')
- let postcount = document.getElementById('postcunt')
- let imgside = document.querySelectorAll('.imgside')
- let disc = document.querySelectorAll('.disc')
- let likeCunt = document.getElementById('likeCunt')
+const zBlure  = $.getElementById('zBlure')
+const editeInfo  = $.getElementById('editeInfo')
+const select  = $.getElementById('select')
+const openSelect = $.getElementById('openSelect')
+const openEditeInfo = $.getElementById('openEditeInfo')
+let cancelKey = $.querySelectorAll('.cancel')
+const main = $.getElementById('main')
+const sBlure = $.getElementById('sBlure')
+let postcount = $.getElementById('postcunt')
+let imgside = $.querySelectorAll('.imgside')
+let disc = $.querySelectorAll('.disc')
+let likeCunt = $.getElementById('likeCunt')
+let userName = $.getElementById('userName')
 let flag;
 
 clickMenu.addEventListener('click',()=>{
@@ -147,11 +148,12 @@ readyss2();
     readyss();
 
 let postsAray = []
-
+let saveAray = []
+console.log(userName);
 
    async function getHandeler() {
     
-     await fetch('https://instagram.iran.liara.run/api/posts/', {
+     await fetch(`https://Instagram.iran.liara.run/api/posts/${userName.innerHTML}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -167,8 +169,8 @@ let postsAray = []
     })
     .then(data => {
         console.log(data);
-      postsAray = data
-      setPostCunt()
+        postsAray = data 
+              setPostCunt()
       console.log(postsAray[0]);
       postsAray.forEach(da => {
               postBox.insertAdjacentHTML("afterbegin",`
@@ -177,11 +179,11 @@ let postsAray = []
       background-size: cover; /* تنظیم اندازه تصویر */
       background-position: center; /* تنظیم موقعیت تصویر */
     
-    " key="${da.id}" onclick="modalsHandeler(event)" class=" wow wow slideInLeft rese overflow-hidden w-full xl:h-80 lg:h-72 md:h-64 sm:h-52 h-48 ">
+    " key="${da.id}" onclick="modalsHandeler(event)" class=" box  overflow-hidden w-full xl:h-80 lg:h-72 md:h-64 sm:h-52 h-48 ">
         </div>
       `)
       console.log(da);
-
+      
       });
 
 
@@ -190,6 +192,53 @@ let postsAray = []
         console.error('Error:', error);
     });
    }
+
+getSaveHandeler()
+   async function getSaveHandeler() {
+       
+   await fetch(`https://instagram.iran.liara.run/api/favorite-posts/${userName.innerHTML}`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    mode: 'cors',
+})
+.then(response => {
+    if (response.ok) {
+        return response.json();
+    } else {
+        throw new Error('Network response was not OK');
+    }
+})
+.then(data => {
+    console.log(data);
+    saveAray = data 
+          
+  console.log(saveAray[0]);
+  saveAray.forEach(da => {
+          postBoxSave.insertAdjacentHTML("afterbegin",`
+  <div style="
+  background-image: url('https://instagram.iran.liara.run/${da.image}'); /* آدرس تصویر */
+  background-size: cover; /* تنظیم اندازه تصویر */
+  background-position: center; /* تنظیم موقعیت تصویر */
+
+" key="${da.id}" class=" box  overflow-hidden w-full xl:h-80 lg:h-72 md:h-64 sm:h-52 h-48 ">
+    </div>
+  `)
+  console.log(da);
+  
+  });
+
+
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+
+
+   }
+
+
     
     getHandeler()
 
@@ -197,28 +246,35 @@ let postsAray = []
 function modalsHandeler(e){
 let post = e.target
 
-
-modalClickOpen(post.getAttribute("key"))
+console.log(post);
+modalClickOpen(post.style.backgroundImage.slice(4, -1).replace(/"/g, ""))
 } 
 
 
-function modalClickOpen(key) {
+function modalClickOpen(src) {
+    if (window.innerWidth > 900) {
         
+    
+    console.log(src)
+    const filteredObjects = postsAray.filter(object => `https://instagram.iran.liara.run/${object.image}` == src);
+
+
+
 console.log('key');
 console.log(imgside);
 imgside.forEach(ee => {
     ee.setAttribute("style",`
-    background-image: url('https://instagram.iran.liara.run/${postsAray[key-1].image}'); /* آدرس تصویر */
+    background-image: url('https://instagram.iran.liara.run/${filteredObjects[0].image}'); /* آدرس تصویر */
     background-size: cover; /* تنظیم اندازه تصویر */
     background-position: center; /* تنظیم موقعیت تصویر */
   `) 
 });
 disc.forEach( ee => {
-    ee.innerHTML = postsAray[key-1].caption
+    ee.innerHTML = filteredObjects[0].caption
 }
 
 ) 
-likeCunt.innerHTML = postsAray[key-1].like
+likeCunt.innerHTML = filteredObjects[0].like
 
     setTimeout(() => {
        
@@ -227,11 +283,10 @@ likeCunt.innerHTML = postsAray[key-1].like
     blure.classList.add('blur-sm')
     sBlure.classList.add('blur-sm')
 
-      }, "500");
+      }, "500");}
 }
 function setPostCunt() {
     console.log(postcount);
     postcount.innerHTML = postsAray.length
 }
-
 

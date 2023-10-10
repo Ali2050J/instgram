@@ -2,22 +2,53 @@
 {% load static %}
 
 {% block style %}
+
 <link rel="stylesheet" href="{% static 'profile/src/css/style.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
 <style>
-    .rese {
-        height: 300px;
-        /* ارتفاع پیشفرض */
+    .box {
+        height: 14rem;
     }
 
-    @media (max-width: 320px) {
-        .rese {
+    @media screen and (max-width: 360px) {
+        .box {
             height: 7rem;
-            /* ارتفاع در صفحات با عرض کمتر از 320 پیکسل */
+        }
+    }
+
+    @media screen and (min-width: 360px) {
+        .box {
+            height: 8rem;
+        }
+    }
+
+    @media screen and (min-width: 440px) {
+        .box {
+            height: 10rem;
+        }
+    }
+
+    @media screen and (min-width: 511px) {
+        .box {
+            height: 12rem;
+        }
+    }
+
+    @media screen and (min-width: 660px) {
+        .box {
+            height: 14rem;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .box {
+            height: 20rem;
         }
     }
 </style>
+
 <title>Profile</title>
+
 {% endblock %}
 
 {% block content %}
@@ -48,7 +79,7 @@
                             {% if user.profile.image %}
                             <div
                                 class="w-12 h-12 ml-5 mt-4 rounded-full bg-black overflow-hidden flex items-center justify-center ">
-                                <img class="object-cover" src="{{ user.profile.image.url }}" alt="">
+                                <img class="object-cover  " src="{{ user.profile.image.url }}" alt="">
                             </div>
                             {% endif %}
 
@@ -139,18 +170,18 @@
                         {% if user.profile.image %}
                         <div
                             class="w-12 h-12 ml-5 mt-4 rounded-full bg-black overflow-hidden flex items-center justify-center ">
-                            <img class="object-cover" src="{{ user.profile.image.url }}" alt="">
+                            <img class="object-cover  " src="{{ user.profile.image.url }}" alt="">
                         </div>
                         {% endif %}
 
                         <h2 class=" ml-4 mt-4">{{ user.username }}</h2>
-
                     </div>
-                    <span class="ml-5 disc w-4/5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo,
-                        nulla.</span>
 
+                    <span class="ml-5 disc w-4/5">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Explicabo,nulla.</span>
 
                 </div>
+
                 <!--for like & save and who liked -->
                 <div class="h-28">
                     <!--like and save-->
@@ -298,11 +329,11 @@
         </a>
         <a href="">
             <div class="flex cursor-pointer justify-center  flex-row space-x-5 items-center">
-                <div style=" 
-                    background-image: url('https://instagram.iran.liara.run/{{ request.user.profile.image.url }}'); /* آدرس تصویر */ 
-                    background-size: cover; /* تنظیم اندازه تصویر */ 
-                    background-position: center; /* تنظیم موقعیت تصویر */ 
-                    " class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  "></div>
+                <div style="
+                    background-image: url('https://instagram.iran.liara.run/{{ request.user.profile.image.url }}'); /* آدرس تصویر */
+                    background-size: cover; /* تنظیم اندازه تصویر */
+                    background-position: center; /* تنظیم موقعیت تصویر */
+                    " class=" rounded-full  -ml-2   overflow-hidden w-10 h-10"></div>
                 <h3>Profile</h3>
             </div>
         </a>
@@ -326,8 +357,9 @@
 
         </div>
     </div>
+
     <div class="flex">
-        <div class="w-[20%] hidden  xl:block  h-[1300px]"></div>
+        <div class="s w-[20%] hidden  xl:block  h-[1300px]"></div>
         <div id="blure"
             class="min-h-[1300px] w-full  cancel overflow-ellipsis md:mx-auto lg:mx-auto sm:mx-auto xl:mx-auto bg-white flex flex-col md:max-w-screen-md sm:max-w-screen-sm lg:max-w-5xl xl:max-w-7xl ">
 
@@ -369,39 +401,40 @@
                     <h2 id="userA" class="justify-self-end inline ">{{ user.username }}</h2>
                 </div>
             </div>
-            <header class="w-[90%]   xl:mt-12 mt-8 flex mx-auto ">
-                <div class="flex xl:justify-center h-24 w-full bg-white flex-wrap min-w-fit">
 
+            <header class="w-[90%]   xl:mt-12 mt-8 flex mx-auto ">
+                <div class="flex xl:justify-center h-24 w-full bg-white  min-w-fit  ">
                     {% if user.profile.image %}
-                    <div
-                        class="rounded-full justify-center flex-wrap flex xl:-mr-9  overflow-hidden w-[77px] h-[77px]  ">
-                        <img id="profilePicture" class=" object-cover bg-inherit" src="{{ user.profile.image.url }}"
-                            alt="profile-picture">
+                    <div style="
+                        background-image: url('https://instagram.iran.liara.run/{{ user.profile.image.url }}'); /* آدرس تصویر */
+                        background-size: cover; /* تنظیم اندازه تصویر */
+                        background-position: center; /* تنظیم موقعیت تصویر */"
+                        class="rounded-full   justify-center   xl:-mr-9  overflow-hidden w-[77px] h-[77px]">
                     </div>
                     {% endif %}
-
                     <div
-                        class="flex mr-4 ml-2 md:mr-14 sm:mr-10 justify-center  content-between flex-col items-center md:font-semibold md:ml-28 sm:ml-20">
+                        class="flex ml-6 mr-4  md:mr-14 sm:mr-10 justify-center  content-between flex-col items-center md:font-semibold md:ml-28 sm:ml-20">
 
-                        <span id="postcunt" class="-mb-2">1</span>
+                        <span id="postcunt" class="-mb-2">{{ user.posts.all|length }}</span>
                         <span>Posts</span>
                     </div>
                     <div
                         class="flex mr-4  md:mr-14  sm:mr-10  justify-center  content-between flex-col items-center md:font-semibold ">
-                        <span id="Fllowers" class="-mb-2">{{ user.follower.all|length }}</span>
+                        <span id="Fllowers" class="-mb-2">{{ user.followers.all|length }}</span>
                         <span>Followers</span>
                     </div>
                     <div
                         class="flex  md:mr-14  sm:mr-10  justify-center  content-start flex-col items-center md:font-semibold">
-                        <span id="Fllowing" class="-mb-2">{{ user.following.all|length }}</span>
+                        <span id="Fllowing" class="-mb-2">{{ user.followings.all|length }}</span>
                         <span>Following</span>
                     </div>
                 </div>
 
             </header>
+            <br>
             <div class="w-[90%]  grid xl:justify-center   mx-auto -mt-3 md:mt-2">
-                <h3 class="  font-bold">{{ user.username }}</h3>
-                <p class="text-slate-500   -mt-2">Programmer</p>
+                <h3 id="userName" class="  font-bold">{{ user.username }}</h3>
+                <p class="text-slate-500   -mt-2">Programer</p>
                 <div
                     class="font-semibold max-w-[29rem] sm:w-[28rem] md:w-[32rem]  lg:w-[32rem] xl:w-[33rem] overflow-visible -mt-1">
                     {% if user.profile.bio %}
@@ -419,12 +452,12 @@
                 </a>
                 {% else %}
                 {% if is_following %}
-                <a id="spa"
+                <a id="spa-unfollow"
                     class="nav-link flex nav-link items-center justify-center font-bold w-[28%] rounded-md border h-8 bg-blue"
                     href="{% url 'accounts:unfollow_user' user.id %}">Unfollow
                 </a>
                 {% else %}
-                <a id="spa"
+                <a id="spa-follow"
                     class="nav-link flex nav-link items-center justify-center font-bold w-[28%] rounded-md border h-8 bg-blue"
                     href="{% url 'accounts:follow_user' user.id %}">Follow
                 </a>
@@ -450,44 +483,33 @@
                             stroke-width="2px" x1="21" x2="3" y1="9.015" y2="9.015"></line>
                         <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
                             stroke-width="2px" x1="21" x2="3" y1="14.985" y2="14.985"></line>
-                    </svg></div>
+                    </svg>
+                </div>
                 <div id="iconSave" class="w-1/2 scale-150 items-center h-10 flex justify-center content-center"><svg
                         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label=""
                         class="_ab6-" color="rgb(168, 168, 168)" fill="rgb(168, 168, 168)" height="12" role="img"
                         viewBox="0 0 24 24" width="12">
                         <polygon fill="none" points="20 21 12 13.44 4 21 4 3 20 3 20 21" stroke="#A8A8A8"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></polygon>
-                    </svg></div>
-
-
-
-
+                    </svg>
+                </div>
             </div>
+
             <div id="forhr" class="flex justify-start w-full">
                 <hr class="w-1/2 transition-all duration-300 ease-in-out bg-slate-400 h-[1.5px]">
 
             </div>
-            <div id="postBox" class="grid max-w-[114rem] grid-cols-3 mt-1 gap-1 border border-white">
-            </div>
+
+            <div id="postBox" class="grid  max-w-[114rem] grid-cols-3 mt-1   gap-1  border border-white"> </div>
             <div id="postBoxSave" class="grid max-w-[114rem] grid-cols-3 mt-1 gap-1 hidden border border-white">
-                {% if user.posts.all %}
-                {% for post in user.posts.all %}
-                <div style="
-                    background-image: url('https://instagram.iran.liara.run/{{ post.image.url }}'); /* آدرس تصویر */
-                    background-size: cover; /* تنظیم اندازه تصویر */
-                    background-position: center; /* تنظیم موقعیت تصویر */" key="${da.id}"
-                    class=" w-full xl:h-80 lg:h-72 md:h-64 sm:h-52 h-48 overflow-hidden">
-                </div>
-                {% endfor %}
-                {% endif %}
             </div>
 
             <div id="buttombar"
                 class=" hidden  mx-auto  mt-80 w-full rounded-t-2xl  h-[30rem] flex-col  fixed bg-white  border-t border-black space-y-8">
                 <hr class="h-1 mt-1 bg-black rounded-lg w-1/12 mx-auto ">
-                <div class="flex ml-6 mt-10 cursor-pointer flex-row space-x-5 items-center"><svg
-                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" aria-label="Reels"
-                        class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img"
+                <div class="flex ml-6 mt-10 cursor-pointer flex-row space-x-5 items-center">
+                    <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+                        aria-label="Reels" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img"
                         viewBox="0 0 24 24" width="24">
                         <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-width="2px" x1="2.049"
                             x2="21.95" y1="7.002" y2="7.002"></line>
@@ -501,38 +523,14 @@
                             stroke-width="2px"></path>
                         <path
                             d="M9.763 17.664a.908.908 0 0 1-.454-.787V11.63a.909.909 0 0 1 1.364-.788l4.545 2.624a.909.909 0 0 1 0 1.575l-4.545 2.624a.91.91 0 0 1-.91 0Z"
-                            fill-rule="evenodd"></path>
-                    </svg><span>Reels</span>
+                            fill-rule="evenodd">
+                        </path>
+                    </svg>
+                    <span>Reels</span>
                 </div>
-
-                <!-- <div class="flex ml-6  cursor-pointer flex-row space-x-5 items-center">
-                    <svg
-                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
-                        aria-label="New post" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24"
-                        role="img" viewBox="0 0 24 24" width="24">
-                        <path
-                            d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z"
-                            fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2px"></path>
-                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2px" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line>
-                        <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="2px" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
-                    </svg><span>Create</span>
-                </div>
-                <div class="flex ml-6 cursor-pointer flex-row space-x-5 items-center">
-                    {% if user.profile.image %}
-                    <div class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  ">
-                        <img class=" object-cover" src="{{ user.profile.image.url }}" alt="profile-pictures">
-                    </div>
-                    {% endif %}
-
-                    <h3>Profile</h3>
-                </div> -->
 
                 <div class="flex ml-6  cursor-pointer flex-row space-x-5 items-center">
-                    <svg
-                        xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+                    <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
                         aria-label="New post" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24"
                         role="img" viewBox="0 0 24 24" width="24">
                         <path
@@ -543,26 +541,23 @@
                             stroke-width="2px" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line>
                         <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
                             stroke-width="2px" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
-                    </svg><span>Create</span>
+                    </svg>
+                    <span>Create</span>
                 </div>
 
                 <div class="flex ml-6 cursor-pointer flex-row space-x-5 items-center">
                     {% if user.profile.image %}
-                    <div class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  " style=" 
-                        background-image: url('https://instagram.iran.liara.run/{{ user.profile.image.url }}'); /* آدرس تصویر */ 
-                        background-size: cover; /* تنظیم اندازه تصویر */ 
+                    <div class=" rounded-full  -ml-2   overflow-hidden w-10 h-10  " style="
+                        background-image: url('https://instagram.iran.liara.run/{{ user.profile.image.url }}'); /* آدرس تصویر */
+                        background-size: cover; /* تنظیم اندازه تصویر */
                         background-position: center; /* تنظیم موقعیت تصویر */">
-                        <img class=" object-cover" src="{{ user.profile.image.url }}" alt="profile-pictures">
+                        <img class=" object-cover " src="{{ user.profile.image.url }}" alt="profile-pictures">
                     </div>
                     {% endif %}
-
                     <h3>Profile</h3>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
     </div>
 
 

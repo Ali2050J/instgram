@@ -25,8 +25,8 @@ class Profile(models.Model):
 
 
 class Relation(models.Model):
-    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
-    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followings')
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
