@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from django.contrib.auth.models import User
 
 from post.models import Post, Favorite
-from .serializers import PostListSerializer, FollowerOrFollowingListSerializer, UserListSerializer
+from .serializers import PostListSerializer, FollowerOrFollowingListSerializer, UserListSerializer, AddFavoriteSerializer, AddLikeSerializer
 
 
 
@@ -36,7 +36,7 @@ class UserPostListView(APIView):
             srz_data_posts = PostListSerializer(instance=posts, many=True)
             return Response(data=srz_data_posts.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
-            return Response(data={f'{username}': 'this username does not exists.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={'detial': 'this username does not exists.'}, status=status.HTTP_404_NOT_FOUND)
         
 
 class UserFavoritePostListView(APIView):
@@ -48,10 +48,22 @@ class UserFavoritePostListView(APIView):
             return Response(data=srz_data_favorite_posts.data, status=status.HTTP_200_OK)
         
         except User.DoesNotExist:
-            return Response(data={f'{username}': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
         
         except Favorite.DoesNotExist:
-            return Response(data={f'{username}': "this username doesn't have favorite posts."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={'detail': "this username doesn't have favorite posts."}, status=status.HTTP_404_NOT_FOUND)
+        
+
+class PostLikeListView(APIView):
+    def get(self, request, post_id):
+        try:
+            post = Post.objects.get(id=post_id)
+            who_likes = post.like.all().order_by('id')
+            srz_data = UserListSerializer(instance=who_likes, many=True)
+            return Response(data=srz_data.data, status=status.HTTP_200_OK)
+        
+        except Post.DoesNotExist:
+            return Response(data={'detail': "this post doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
         
 
 class UserFollowerListView(APIView):
@@ -62,7 +74,7 @@ class UserFollowerListView(APIView):
             srz_data = FollowerOrFollowingListSerializer(instance=followers, many=True)
             return Response(data=srz_data.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
-            return Response(data={f'{username}': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
 
 
 class UserFollowingListView(APIView):
@@ -73,5 +85,43 @@ class UserFollowingListView(APIView):
             srz_data = FollowerOrFollowingListSerializer(instance=followers, many=True)
             return Response(data=srz_data.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
-            return Response(data={f'{username}': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
 
+
+class AddFavoriteView(APIView):
+    def post(self, request):
+        srz_data = AddFavoriteSerializer(data=request.data)
+        if srz_data.is_valid():
+            try:
+                user = User.objects.get(username=srz_data.data['user'])
+                post = Post.objects.get(id=srz_data.data['post'])
+                user_favorite = Favorite.objects.get(user=user)
+                user_favorite.post.add(post)
+                return Response(srz_data.data, status=status.HTTP_201_CREATED)
+            
+            except User.DoesNotExist:
+                return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+            
+            except Post.DoesNotExist:
+                return Response(data={'detail': "this post doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+            
+        return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class AddLikeView(APIView):
+    def post(self, request):
+        srz_data = AddLikeSerializer(data=request.data)
+        if srz_data.is_valid():
+            try:
+                user = User.objects.get(username=srz_data.data['user'])
+                post = Post.objects.get(id=srz_data.data['post'])
+                post.like.add(user)
+                return Response(srz_data.data, status=status.HTTP_201_CREATED)
+            
+            except User.DoesNotExist:
+                return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+            
+            except Post.DoesNotExist:
+                return Response(data={'detail': "this post doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+            
+        return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -20,3 +20,13 @@ class FollowerOrFollowingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Relation
         fields = '__all__'
+
+
+class AddFavoriteSerializer(serializers.Serializer):
+    user = serializers.CharField()
+    post = serializers.CharField()
+
+
+class AddLikeSerializer(serializers.Serializer):
+    post = serializers.CharField()
+    user = serializers.CharField()
