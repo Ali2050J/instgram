@@ -15,5 +15,7 @@ urlpatterns = [
     path('user_followings/<str:username>/', view=views.UserFollowingListView.as_view(), name='user_following_list'),
 
     path('favorite/add/', view=views.AddFavoriteView.as_view(), name='add_favorite'),
+    path('favorite/<str:username>/delete/<int:post_id>/', view=views.DeleteFavoriteView.as_view(), name='delete_favorite'),
     path('post/like/add/', view=views.AddLikeView.as_view(), name='add_like'),
+    # path('post/like/delete/', view=views.AddLikeView.as_view(), name='add_like'),
 ]

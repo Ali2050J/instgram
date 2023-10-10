@@ -108,6 +108,22 @@ class AddFavoriteView(APIView):
         return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
+class DeleteFavoriteView(APIView):
+    def delete(self, request, username, post_id):
+        try:
+            user = User.objects.get(username=username)
+            user_favorites = Favorite.objects.get(user=user)
+            post = Post.objects.get(id=post_id)
+            user_favorites.post.remove(post)
+            return Response(data={'message': f"this post remove from {username}'s post favorites"}, status=status.HTTP_200_OK)
+        
+        except User.DoesNotExist:
+            return Response(data={'detail': "this user doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Post.DoesNotExist:
+            return Response(data={'detail': "this post doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+    
+
 class AddLikeView(APIView):
     def post(self, request):
         srz_data = AddLikeSerializer(data=request.data)
