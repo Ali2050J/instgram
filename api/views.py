@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser
 
 from django.contrib.auth.models import User
 
@@ -45,7 +45,6 @@ def user_login(request):
     
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
 def user_logout(request):
     if request.method == 'POST':
         try:
