@@ -5,8 +5,10 @@ from . import views
 app_name = 'api'
 
 urlpatterns = [
-    # register
+    # register - login - logout
     path('register/', view=views.RegisterView.as_view(), name='auth_register'),
+    path('login/', view=views.user_login, name='login'),
+    path('logout/', view=views.user_logout, name='logout'),
 
     # users - user posts
     path('users/', view=views.UserListView.as_view(), name='user_list'),
