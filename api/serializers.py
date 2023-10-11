@@ -54,9 +54,15 @@ class PostListSerializer(serializers.ModelSerializer):
 
 
 class CommentListSerializer(serializers.ModelSerializer):
+    reply_comments = serializers.SerializerMethodField()
+    
     class Meta:
         model = Comment
         fields = '__all__'
+
+    def get_reply_comments(self, obj):
+        reply_comments = obj.replies.all()
+        return CommentListSerializer(instance=reply_comments, many=True).data
 
 
 class PostDetailSerializer(serializers.ModelSerializer):
