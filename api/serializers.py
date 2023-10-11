@@ -30,3 +30,8 @@ class AddFavoriteSerializer(serializers.Serializer):
 class AddLikeSerializer(serializers.Serializer):
     post = serializers.CharField()
     user = serializers.CharField()
+
+
+class AddFollowersOrFollowingSerializer(serializers.Serializer):
+    from_user = serializers.CharField()
+    to_user = serializers.CharField()
