@@ -5,6 +5,9 @@ from . import views
 app_name = 'api'
 
 urlpatterns = [
+    # register
+    path('register/', view=views.RegisterView.as_view(), name='auth_register'),
+
     # users - user posts
     path('users/', view=views.UserListView.as_view(), name='user_list'),
     path('user_posts/<str:username>/', view=views.UserPostListView.as_view(), name='user_post_list'),

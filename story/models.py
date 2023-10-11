@@ -10,7 +10,6 @@ class Story(models.Model):
     caption = models.TextField(blank=True, null=True)
     like = models.ManyToManyField(User, related_name="likes", blank=True, default=None)
     created = models.DateTimeField(auto_now_add=True)
-    timestamp = models.DateTimeField(default=datetime.now())
 
     def __str__(self):
         return self.user.username

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # third party apps
     'debug_toolbar',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
 ]
 
@@ -157,3 +158,10 @@ CORS_ALLOWED_ORIGINS = [
 # اگر می‌خواهید همه درخواست‌ها را قبول کنید، این خط را اضافه کنید:
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
