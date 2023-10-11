@@ -6,8 +6,7 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAdminUser
+from rest_framework.decorators import api_view
 
 from django.contrib.auth.models import User
 
@@ -72,6 +71,13 @@ class PostListView(APIView):
 
         return Response(data=srz_data_posts.data, status=status.HTTP_200_OK)
  
+
+class PostDetailView(generics.RetrieveAPIView):
+    def retrieve(self, request, *args, **kwargs):
+        post = Post.objects.get(id=self.kwargs['post_id'])
+        srz_post = serializers.PostDetailSerializer(instance=post)
+        return Response(srz_post.data)
+    
 
 class UserPostListView(APIView):
     def get(self, request, username):

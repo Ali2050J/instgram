@@ -2,9 +2,10 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+
 from post.models import Post
 from accounts.models import Relation
-
+from comment.models import Comment
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -50,6 +51,24 @@ class PostListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
+
+
+class CommentListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
+class PostDetailSerializer(serializers.ModelSerializer):
+    comments = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+    def get_comments(self, obj):
+        comments = obj.comments.all()
+        return CommentListSerializer(instance=comments, many=True).data
 
 
 class FollowerOrFollowingListSerializer(serializers.ModelSerializer):
