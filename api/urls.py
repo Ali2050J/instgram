@@ -12,6 +12,7 @@ urlpatterns = [
 
     # users - user posts -----------> (list - detail)
     path('users/', view=views.UserListView.as_view(), name='user_list'),
+    path('user/<str:username>/', view=views.UserProfileView.as_view(), name='user_profile'),
     path('user_posts/<str:username>/', view=views.UserPostListView.as_view(), name='user_post_list'),
     
     # followers - followings -----------> (list - add - delete)

@@ -4,7 +4,7 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
 from post.models import Post
-from accounts.models import Relation
+from accounts.models import Relation, Profile
 from comment.models import Comment
 
 
@@ -45,6 +45,24 @@ class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'profile')
+
+    def get_profile(self, obj):
+        profile = obj.profile
+        return ProfileSerializer(instance=profile).data
 
 
 class PostListSerializer(serializers.ModelSerializer):

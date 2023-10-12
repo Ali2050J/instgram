@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-from django.templatetags.static import static
 
 
 class Profile(models.Model):

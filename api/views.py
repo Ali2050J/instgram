@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 
 from django.contrib.auth.models import User
 
-from accounts.models import Relation
+from accounts.models import Relation, Profile
 from post.models import Post, Favorite
 from . import serializers
 
@@ -59,6 +59,22 @@ class UserListView(APIView):
         users = User.objects.all()
         srz_data = serializers.UserListSerializer(instance=users, many=True)
         return Response(data=srz_data.data, status=status.HTTP_200_OK)
+
+
+class UserProfileView(generics.RetrieveAPIView):
+
+    def retrieve(self, request, *args, **kwargs):
+        try:
+            user = User.objects.get(username=self.kwargs['username'])
+            # profile = Profile.objects.get(user=user)
+            srz_data = serializers.UserProfileSerializer(instance=user)
+            return Response(srz_data.data)
+        
+        except User.DoesNotExist:
+            return Response(data={'detial': 'this username does not exists.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Profile.DoesNotExist:
+            return Response(data={'detial': 'this username does not have profile.'}, status=status.HTTP_404_NOT_FOUND)
 
 
 class PostListView(APIView):
