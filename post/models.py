@@ -21,7 +21,7 @@ class Post(models.Model):
 
 
 class Favorite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites', unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='favorites', unique=True)
     post = models.ManyToManyField(Post, related_name='favorite', blank=True, default=None)
 
     def __str__(self):
