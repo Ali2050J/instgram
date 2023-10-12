@@ -26,15 +26,7 @@ def user_login(request):
         username = request.data.get('username')
         password = request.data.get('password')
 
-        user = None
-        if '@' in username:
-            try:
-                user = User.objects.get(email=username)
-            except ObjectDoesNotExist:
-                pass
-
-        if not user:
-            user = authenticate(username=username, password=password)
+        user = User.objects.filter(email=username).first() or authenticate(username=username, password=password)
 
         if user:
             token, _ = Token.objects.get_or_create(user=user)
