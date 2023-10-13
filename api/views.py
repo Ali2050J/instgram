@@ -3,11 +3,11 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.authtoken.models import Token
-from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view
-from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.decorators import api_view
 
+from django.contrib.auth import authenticate
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 
 from accounts.models import Relation, Profile
