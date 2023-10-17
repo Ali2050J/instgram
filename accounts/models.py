@@ -5,9 +5,9 @@ from django.urls import reverse
 
 class Profile(models.Model):
     GENDERS = (
-        ('Femail', 'femail'),
-        ('Mail', 'mail'),
-        ('Prefer not to say', 'prefer not to say'),
+        ('femail', 'femail'),
+        ('fail', 'mail'),
+        ('frefer not to say', 'prefer not to say'),
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')

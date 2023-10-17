@@ -69,6 +69,22 @@ class UserProfileView(generics.RetrieveAPIView):
             return Response(data={'detial': 'this username does not have profile.'}, status=status.HTTP_404_NOT_FOUND)
 
 
+class UserEditProfileView(APIView):
+
+    def put(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            profile = Profile.objects.get(user=user)
+        except Profile.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = serializers.ProfileSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
 class PostListView(APIView):
     def get(self, request):
         posts = Post.objects.all().order_by('id')
@@ -86,6 +102,11 @@ class PostDetailView(generics.RetrieveAPIView):
         srz_post = serializers.PostDetailSerializer(instance=post)
         return Response(srz_post.data)
     
+
+class PostCreateView(generics.CreateAPIView):
+    serializer_class = serializers.PostCreateSerializer
+    queryser = Post.objects.all()
+
 
 class UserPostListView(APIView):
     def get(self, request, username):

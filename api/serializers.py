@@ -50,7 +50,7 @@ class UserListSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ('image', 'full_name', 'bio', 'gender')
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -93,6 +93,12 @@ class PostDetailSerializer(serializers.ModelSerializer):
     def get_comments(self, obj):
         comments = obj.comments.all()
         return CommentListSerializer(instance=comments, many=True).data
+
+
+class PostCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = '__all__'
 
 
 class FollowerOrFollowingListSerializer(serializers.ModelSerializer):

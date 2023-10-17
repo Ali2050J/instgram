@@ -2,5 +2,11 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
     },
-    "python.formatting.provider": "none"
+    "python.formatting.provider": "none",
+    "editor.wordWrap": "on",
+    "workbench.iconTheme": "vs-seti",
+
+    "editor.tokenColorCustomizations": {
+        "comments": "#878787",
+      }
 }
