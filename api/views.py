@@ -108,6 +108,16 @@ class PostCreateView(generics.CreateAPIView):
     queryser = Post.objects.all()
 
 
+class PostUpdateView(generics.UpdateAPIView):
+    serializer_class = serializers.PostUpdateSerializer
+    queryset = Post.objects.all()
+    lookup_field = 'pk'
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        return super().perform_update(serializer)
+
+
 class UserPostListView(APIView):
     def get(self, request, username):
         try:

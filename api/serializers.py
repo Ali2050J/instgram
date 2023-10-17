@@ -101,6 +101,12 @@ class PostCreateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PostUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ('image', 'caption', 'status')
+
+
 class FollowerOrFollowingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Relation
