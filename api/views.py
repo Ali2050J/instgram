@@ -104,7 +104,7 @@ class PostDetailView(generics.RetrieveAPIView):
     
 
 class PostCreateView(generics.CreateAPIView):
-    serializer_class = serializers.PostCreateSerializer
+    serializer_class = serializers.PostCreateDeleteSerializer
     queryser = Post.objects.all()
 
 
@@ -116,6 +116,11 @@ class PostUpdateView(generics.UpdateAPIView):
     def perform_update(self, serializer):
         instance = serializer.save()
         return super().perform_update(serializer)
+
+
+class PostDeleteView(generics.DestroyAPIView):
+    serializer_class = serializers.PostCreateDeleteSerializer
+    queryset = Post.objects.all()
 
 
 class UserPostListView(APIView):

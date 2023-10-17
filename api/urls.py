@@ -29,10 +29,11 @@ urlpatterns = [
     path('favorite/add/', view=views.AddFavoriteView.as_view(), name='add_favorite'),
     path('favorite/<str:username>/delete/<int:post_id>/', view=views.DeleteFavoriteView.as_view(), name='delete_favorite'),
     
-    # posts - post's like -----------> (list - detail - create - add - delete)
+    # posts - post's like -----------> (list - detail - create - update - add - delete)
     path('posts/', view=views.PostListView.as_view(), name='post_list'),
     path('post/create/', view=views.PostCreateView.as_view(), name='post_create'),
     path('post/update/<int:pk>/', view=views.PostUpdateView.as_view(), name='post_update'),
+    path('post/delete/<int:pk>/', view=views.PostDeleteView.as_view(), name='post_delete'),
     path('post/<int:post_id>/', view=views.PostDetailView.as_view(), name='post_list'),
     path('post/likes/<int:post_id>/', view=views.PostLikeListView.as_view(), name='post_likes'), # post like list
     path('post/like/add/', view=views.AddLikeView.as_view(), name='add_like'), # add

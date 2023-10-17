@@ -95,7 +95,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
         return CommentListSerializer(instance=comments, many=True).data
 
 
-class PostCreateSerializer(serializers.ModelSerializer):
+class PostCreateDeleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
