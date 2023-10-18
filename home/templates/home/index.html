@@ -597,6 +597,7 @@
                 <div class="posts">
                     {% if posts %}
                         {% for post in posts %}
+                            {% with likes=post.like.all %}
                             <article class="post">
 
                                 <div class="post__header">
@@ -652,7 +653,7 @@
                                 <div class="post__footer">
                                     <div class="post__buttons">
                                         <button class="post__button">
-                                            {% if not request.user in post.like.all %}
+                                            {% if not request.user in likes %}
                                                 <a href="{% url 'post:post_like' post.id %}">
                                                     <img src="{% static 'icons/white-heart.png' %}" alt="white-heart"
                                                          width="24" height="24">
@@ -710,7 +711,7 @@
                                                      alt="User Picture"/>
                                             </a>
 
-                                            <span>{{ post.like.all|length }} Likes
+                                            <span>{{ likes|length }} Likes
 {#                                          <a class="post__name--underline" href="#">user123</a> and#}
 {#                                          <a href="#">73 others</a>#}
                                         </span>
@@ -773,6 +774,7 @@
                                     </div>
                                 </div>
                             </article>
+                            {% endwith %}
                         {% endfor %}
                     {% else %}
                         <h1 style="margin: 200px auto">There is not Posts!</h1>
