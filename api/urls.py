@@ -38,4 +38,7 @@ urlpatterns = [
     path('post/likes/<int:post_id>/', view=views.PostLikeListView.as_view(), name='post_likes'), # post like list
     path('post/like/add/', view=views.AddLikeView.as_view(), name='add_like'), # add
     path('post/<int:post_id>/like/delete/<str:username>/', view=views.DeleteLikeView.as_view(), name='delete_like'), # delete
+    
+    
+    path('home-posts/<str:username>/', view=views.UserHomePostListView.as_view(), name='home_posts'), # post list (home)
 ]

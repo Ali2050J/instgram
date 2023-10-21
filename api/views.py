@@ -96,6 +96,19 @@ class PostListView(APIView):
         return Response(data=srz_data_posts.data, status=status.HTTP_200_OK)
  
 
+class UserHomePostListView(generics.ListAPIView):
+    serializer_class = serializers.PostListSerializer
+
+    def get_queryset(self):
+        user = User.objects.get(username=self.kwargs['username'])
+        user_followers = user.followers.all()
+        posts = []
+        for user in user_followers:
+            for post in user.from_user.posts.all():
+                posts.append(post)
+        return posts
+
+
 class PostDetailView(generics.RetrieveAPIView):
     def retrieve(self, request, *args, **kwargs):
         post = Post.objects.get(id=self.kwargs['post_id'])
