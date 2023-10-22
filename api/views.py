@@ -16,11 +16,13 @@ from story.models import Story
 from . import serializers
 
 
+# register
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.RegisterSerializer
 
 
+# login
 @api_view(['POST'])
 def user_login(request):
     if request.method == 'POST':
@@ -36,6 +38,7 @@ def user_login(request):
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
     
 
+# logout
 @api_view(['POST'])
 def user_logout(request):
     if request.method == 'POST':
@@ -47,6 +50,7 @@ def user_logout(request):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+# user list
 class UserListView(APIView):
     def get(self, request):
         users = User.objects.all()
@@ -54,6 +58,7 @@ class UserListView(APIView):
         return Response(data=srz_data.data, status=status.HTTP_200_OK)
 
 
+# user detail
 class UserProfileView(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
@@ -70,6 +75,7 @@ class UserProfileView(generics.RetrieveAPIView):
             return Response(data={'detial': 'this username does not have profile.'}, status=status.HTTP_404_NOT_FOUND)
 
 
+# user update
 class UserEditProfileView(APIView):
 
     def put(self, request, username):
@@ -84,72 +90,9 @@ class UserEditProfileView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-
-class PostListView(APIView):
-    def get(self, request):
-        posts = Post.objects.all().order_by('id')
-        srz_data_posts = serializers.PostListSerializer(instance=posts, many=True)
-
-        for post in srz_data_posts.data:
-            post['type'] = 'post'
-
-        return Response(data=srz_data_posts.data, status=status.HTTP_200_OK)
- 
-
-class UserHomePostListView(generics.ListAPIView):
-    serializer_class = serializers.PostListSerializer
-
-    def get_queryset(self):
-        user = User.objects.get(username=self.kwargs['username'])
-        user_followers = user.followers.all()
-        posts = []
-        for user in user_followers:
-            for post in user.from_user.posts.all():
-                posts.append(post)
-        return posts
 
 
-class UserHomeStoryListView(generics.ListAPIView):
-    serializer_class = serializers.StorySerializer
-    
-    def get_queryset(self):
-        user = User.objects.get(username=self.kwargs['username'])
-        user_followers = user.followers.all()
-        stories = []
-        for user in user_followers:
-            for story in user.from_user.stories.all():
-                stories.append(story)
-        return stories
-
-
-class PostDetailView(generics.RetrieveAPIView):
-    def retrieve(self, request, *args, **kwargs):
-        post = Post.objects.get(id=self.kwargs['post_id'])
-        srz_post = serializers.PostDetailSerializer(instance=post)
-        return Response(srz_post.data)
-    
-
-class PostCreateView(generics.CreateAPIView):
-    serializer_class = serializers.PostCreateDeleteSerializer
-    queryser = Post.objects.all()
-
-
-class PostUpdateView(generics.UpdateAPIView):
-    serializer_class = serializers.PostUpdateSerializer
-    queryset = Post.objects.all()
-    lookup_field = 'pk'
-
-    def perform_update(self, serializer):
-        instance = serializer.save()
-        return super().perform_update(serializer)
-
-
-class PostDeleteView(generics.DestroyAPIView):
-    serializer_class = serializers.PostCreateDeleteSerializer
-    queryset = Post.objects.all()
-
-
+# user post list
 class UserPostListView(APIView):
     def get(self, request, username):
         try:
@@ -161,6 +104,7 @@ class UserPostListView(APIView):
             return Response(data={'detial': 'this username does not exists.'}, status=status.HTTP_404_NOT_FOUND)
         
 
+# user favorite post list
 class UserFavoritePostListView(APIView):
     def get(self, request, username):
         try:
@@ -174,8 +118,80 @@ class UserFavoritePostListView(APIView):
         
         except Favorite.DoesNotExist:
             return Response(data={'detail': "this username doesn't have favorite posts."}, status=status.HTTP_404_NOT_FOUND)
-        
 
+ 
+# all posts which user followers posted
+class UserHomePostListView(generics.ListAPIView):
+    serializer_class = serializers.PostListSerializer
+
+    def get_queryset(self):
+        user = User.objects.get(username=self.kwargs['username'])
+        user_followers = user.followers.all()
+        posts = []
+        for user in user_followers:
+            for post in user.from_user.posts.all():
+                posts.append(post)
+        return posts
+
+
+# # all stories which user followers posted
+class UserHomeStoryListView(generics.ListAPIView):
+    serializer_class = serializers.StorySerializer
+    
+    def get_queryset(self):
+        user = User.objects.get(username=self.kwargs['username'])
+        user_followers = user.followers.all()
+        stories = []
+        for user in user_followers:
+            for story in user.from_user.stories.all():
+                stories.append(story)
+        return stories   
+
+
+# post list
+class PostListView(APIView):
+    def get(self, request):
+        posts = Post.objects.all().order_by('id')
+        srz_data_posts = serializers.PostListSerializer(instance=posts, many=True)
+
+        for post in srz_data_posts.data:
+            post['type'] = 'post'
+
+        return Response(data=srz_data_posts.data, status=status.HTTP_200_OK)
+ 
+
+# post detail
+class PostDetailView(generics.RetrieveAPIView):
+    def retrieve(self, request, *args, **kwargs):
+        post = Post.objects.get(id=self.kwargs['post_id'])
+        srz_post = serializers.PostDetailSerializer(instance=post)
+        return Response(srz_post.data)
+    
+
+# post create
+class PostCreateView(generics.CreateAPIView):
+    serializer_class = serializers.PostCreateDeleteSerializer
+    queryser = Post.objects.all()
+
+
+# post update
+class PostUpdateView(generics.UpdateAPIView):
+    serializer_class = serializers.PostUpdateSerializer
+    queryset = Post.objects.all()
+    lookup_field = 'pk'
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        return super().perform_update(serializer)
+
+
+# post delete
+class PostDeleteView(generics.DestroyAPIView):
+    serializer_class = serializers.PostCreateDeleteSerializer
+    queryset = Post.objects.all()
+
+
+# post likes list(users)
 class PostLikeListView(APIView):
     def get(self, request, post_id):
         try:
@@ -188,6 +204,7 @@ class PostLikeListView(APIView):
             return Response(data={'detail': "this post doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
         
 
+# user followers list(users)
 class UserFollowerListView(APIView):
     def get(self, request, username):
         try:
@@ -199,6 +216,7 @@ class UserFollowerListView(APIView):
             return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
 
 
+# # user followings list(users)
 class UserFollowingListView(APIView):
     def get(self, request, username):
         try:
@@ -210,11 +228,13 @@ class UserFollowingListView(APIView):
             return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
         
 
+# story detail and delete
 class StoryDetailDeleteView(generics.RetrieveDestroyAPIView):
     serializer_class = serializers.StorySerializer
     queryset = Story.objects.all()
 
 
+# add user to followers or following
 class AddFollowView(APIView):
     def post(self, request):
         srz_data = serializers.AddFollowersOrFollowingSerializer(data=request.POST)
@@ -234,6 +254,7 @@ class AddFollowView(APIView):
         return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# # delete user from followers or following
 class DeleteFollowView(APIView):
    def delete(self, request, from_user, to_user):
         from_user = User.objects.get(username=from_user)
@@ -246,6 +267,7 @@ class DeleteFollowView(APIView):
             return Response(data={'detail': f"{from_user} don't following {to_user}."}, status=status.HTTP_404_NOT_FOUND)
 
 
+# add post to user favorite posts
 class AddFavoriteView(APIView):
     def post(self, request):
         srz_data = serializers.AddFavoriteSerializer(data=request.data)
@@ -266,6 +288,7 @@ class AddFavoriteView(APIView):
         return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
+# # delete post to user favorite posts
 class DeleteFavoriteView(APIView):
     def delete(self, request, username, post_id):
         try:
@@ -282,6 +305,7 @@ class DeleteFavoriteView(APIView):
             return Response(data={'detail': "this post doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
     
 
+# add user to post likes (one user like a post)
 class AddLikeView(APIView):
     def post(self, request):
         srz_data = serializers.AddLikeSerializer(data=request.data)
@@ -301,6 +325,7 @@ class AddLikeView(APIView):
         return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
+# delete user from post likes (one user unlike a post)
 class DeleteLikeView(APIView):
     def delete(self, request, username, post_id):
         try:
