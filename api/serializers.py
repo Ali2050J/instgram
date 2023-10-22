@@ -6,6 +6,7 @@ from django.contrib.auth.password_validation import validate_password
 from post.models import Post
 from accounts.models import Relation, Profile
 from comment.models import Comment
+from story.models import Story
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -68,6 +69,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class PostListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
+        fields = '__all__'
+
+
+class StorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Story
         fields = '__all__'
 
 

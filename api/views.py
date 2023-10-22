@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 
 from accounts.models import Relation, Profile
 from post.models import Post, Favorite
+from story.models import Story
 from . import serializers
 
 
@@ -109,6 +110,19 @@ class UserHomePostListView(generics.ListAPIView):
         return posts
 
 
+class UserHomeStoryListView(generics.ListAPIView):
+    serializer_class = serializers.StorySerializer
+    
+    def get_queryset(self):
+        user = User.objects.get(username=self.kwargs['username'])
+        user_followers = user.followers.all()
+        stories = []
+        for user in user_followers:
+            for story in user.from_user.stories.all():
+                stories.append(story)
+        return stories
+
+
 class PostDetailView(generics.RetrieveAPIView):
     def retrieve(self, request, *args, **kwargs):
         post = Post.objects.get(id=self.kwargs['post_id'])
@@ -195,6 +209,11 @@ class UserFollowingListView(APIView):
         except User.DoesNotExist:
             return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
         
+
+class StoryDetailDeleteView(generics.RetrieveDestroyAPIView):
+    serializer_class = serializers.StorySerializer
+    queryset = Story.objects.all()
+
 
 class AddFollowView(APIView):
     def post(self, request):

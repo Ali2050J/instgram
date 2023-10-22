@@ -25,7 +25,7 @@ urlpatterns = [
 
     
     # user favorites -----------> (list - add - delete)
-    path('user_favorite-posts/<str:username>/', view=views.UserFavoritePostListView.as_view(), name='user_favorite_post_list'),
+    path('user-favorite-posts/<str:username>/', view=views.UserFavoritePostListView.as_view(), name='user_favorite_post_list'),
     path('favorite/add/', view=views.AddFavoriteView.as_view(), name='add_favorite'),
     path('favorite/<str:username>/delete/<int:post_id>/', view=views.DeleteFavoriteView.as_view(), name='delete_favorite'),
     
@@ -38,7 +38,10 @@ urlpatterns = [
     path('post/likes/<int:post_id>/', view=views.PostLikeListView.as_view(), name='post_likes'), # post like list
     path('post/like/add/', view=views.AddLikeView.as_view(), name='add_like'), # add
     path('post/<int:post_id>/like/delete/<str:username>/', view=views.DeleteLikeView.as_view(), name='delete_like'), # delete
+
+    # story
+    path('story/<int:pk>/', view=views.StoryDetailDeleteView.as_view(), name='story_detail'),
     
-    
-    path('home-posts/<str:username>/', view=views.UserHomePostListView.as_view(), name='home_posts'), # post list (home)
+    path('home-posts/<str:username>/', view=views.UserHomePostListView.as_view(), name='home_posts'), # post list (home) for each user
+    path('home-stories/<str:username>/', view=views.UserHomeStoryListView.as_view(), name='home_stories'), # story list (home) for each user
 ]
