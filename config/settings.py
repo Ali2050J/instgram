@@ -61,7 +61,7 @@ MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # django  cores headers
+    'corsheaders.middleware.CorsMiddleware',  # django cores headers
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -147,19 +147,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# django cores config
-CORS_ALLOWED_ORIGINS = [
-    'https://instagram.iran.liara.run',
-    'https://127.0.0.1:8000',
-    "https://localhost:8000",
-    # "https://subdomain.example.com",
-]
 
-# اگر می‌خواهید همه درخواست‌ها را قبول کنید، این خط را اضافه کنید:
-CORS_ALLOW_ALL_ORIGINS = True
+# # django cores config
+CORS_ALLOW_ALL_ORIGINS = True # accept all request
 CORS_ALLOW_CREDENTIALS = True
 
 
+# drf configs 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
