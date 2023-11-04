@@ -67,9 +67,20 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 class PostListSerializer(serializers.ModelSerializer):
+    likes_quantity = serializers.SerializerMethodField()
+    comments_quantity = serializers.SerializerMethodField()
+
     class Meta:
         model = Post
         fields = '__all__'
+
+    def get_likes_quantity(self, obj):
+        likes = obj.like.all().count()
+        return likes
+    
+    def get_comments_quantity(self, obj):
+        comments = obj.comments.all().count()
+        return comments
 
 
 class StorySerializer(serializers.ModelSerializer):
