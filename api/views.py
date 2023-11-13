@@ -58,6 +58,17 @@ class UserListView(APIView):
         return Response(data=srz_data.data, status=status.HTTP_200_OK)
 
 
+# user profile
+class UserAllInfoProfileView(APIView):
+    def get(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            srz_data = serializers.UserAllInfoProfileSerializer(instance=user)
+            return Response(data=srz_data.data, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response(data={'detail': 'this username does not exists.'}, status=status.HTTP_404_NOT_FOUND)
+
+
 # user detail
 class UserProfileView(generics.RetrieveAPIView):
 

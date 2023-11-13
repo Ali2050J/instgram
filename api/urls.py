@@ -12,6 +12,7 @@ urlpatterns = [
 
     # users - user posts -----------> (list - detail)
     path('users/', view=views.UserListView.as_view(), name='user_list'),
+    path('user/profile/<str:username>/', view=views.UserAllInfoProfileView.as_view(), name='user_all_info_profile'),
     path('user/<str:username>/', view=views.UserProfileView.as_view(), name='user_profile'),
     path('user/<str:username>/edit/', view=views.UserEditProfileView.as_view(), name='user_edit_profile'),
     path('user_posts/<str:username>/', view=views.UserPostListView.as_view(), name='user_post_list'),

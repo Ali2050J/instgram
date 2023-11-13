@@ -64,6 +64,34 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def get_profile(self, obj):
         profile = obj.profile
         return ProfileSerializer(instance=profile).data
+    
+
+class UserAllInfoProfileSerializer(serializers.ModelSerializer):
+    followers_quantity = serializers.SerializerMethodField()
+    followings_quantity = serializers.SerializerMethodField()
+    posts_quantity = serializers.SerializerMethodField()
+    profile = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'profile', 'followers_quantity', 'followings_quantity', 'posts_quantity')
+
+    def get_profile(self, obj):
+        profile = obj.profile
+        return ProfileSerializer(instance=profile).data
+    
+    def get_followers_quantity(self, obj):
+        followers_quantity = obj.followers.count()
+        return followers_quantity
+    
+    def get_followings_quantity(self, obj):
+        followings_quantity = obj.followings.count()
+        return followings_quantity
+    
+    def get_posts_quantity(self, obj):
+        posts_quantity = obj.posts.count()
+        return posts_quantity
+
 
 
 class PostListSerializer(serializers.ModelSerializer):
