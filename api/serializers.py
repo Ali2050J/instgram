@@ -69,6 +69,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class PostListSerializer(serializers.ModelSerializer):
     likes_quantity = serializers.SerializerMethodField()
     comments_quantity = serializers.SerializerMethodField()
+    user_profile = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Post
@@ -81,12 +83,22 @@ class PostListSerializer(serializers.ModelSerializer):
     def get_comments_quantity(self, obj):
         comments = obj.comments.all().count()
         return comments
+    
+    def get_user_profile(self, obj):
+        if obj.user.profile.image:
+            return obj.user.profile.image.url
+        return ''
 
 
 class StorySerializer(serializers.ModelSerializer):
+    user_profile = serializers.SerializerMethodField()
+
     class Meta:
         model = Story
         fields = '__all__'
+
+    def get_user_profile(self, obj):
+        return obj.user.profile.image.url
 
 
 class CommentListSerializer(serializers.ModelSerializer):
