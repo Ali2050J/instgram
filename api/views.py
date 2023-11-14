@@ -1,13 +1,12 @@
-from rest_framework.response import Response
-from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view
-from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework import generics
 
 from django.contrib.auth import authenticate
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 
 from accounts.models import Relation, Profile
@@ -215,6 +214,22 @@ class PostLikeListView(APIView):
             return Response(data={'detail': "this post doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
         
 
+class PostLikeCheckView(APIView):
+    def get(self, request, username, post_id):
+        try:
+            post = Post.objects.get(id=post_id)
+            print(post.like.all())
+            user = User.objects.get(username=username)
+            if user in post.like.all():
+                return Response({'status': 'True'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'status': 'False'}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Post.DoesNotExist:
+            return Response(data={'detail': "this post doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
+
 # user followers list(users)
 class UserFollowerListView(APIView):
     def get(self, request, username):
@@ -227,7 +242,7 @@ class UserFollowerListView(APIView):
             return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
 
 
-# # user followings list(users)
+# user followings list(users)
 class UserFollowingListView(APIView):
     def get(self, request, username):
         try:
