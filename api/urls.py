@@ -20,7 +20,9 @@ urlpatterns = [
     # followers - followings -----------> (list - add - delete)
     path('user_followers/<str:username>/', view=views.UserFollowerListView.as_view(), name='user_follower_list'),
     path('user_followings/<str:username>/', view=views.UserFollowingListView.as_view(), name='user_following_list'),
+    path('user/follow/<str:from_user>/<str:to_user>/', view=views.UserCheckFollowView.as_view(), name='check_user_follow'),
     
+
     path('follow/add/', view=views.AddFollowView.as_view(), name='add_follow'),
     path('follow/<str:to_user>/delete/<str:from_user>/', view=views.DeleteFollowView.as_view(), name='delete_follow'),
 

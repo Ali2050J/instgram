@@ -230,6 +230,7 @@ class PostLikeCheckView(APIView):
         except Post.DoesNotExist:
             return Response(data={'detail': "this post doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
 
+
 # user followers list(users)
 class UserFollowerListView(APIView):
     def get(self, request, username):
@@ -253,6 +254,14 @@ class UserFollowingListView(APIView):
         except User.DoesNotExist:
             return Response(data={'detail': "this username doesn't exists."}, status=status.HTTP_404_NOT_FOUND)
         
+
+class UserCheckFollowView(APIView):
+    def get(self, request, from_user, to_user):
+        relation = Relation.objects.filter(from_user__username=from_user, to_user__username=to_user)
+        if relation.exists():
+            return Response(data={'detail': True}, status=status.HTTP_200_OK)
+        return Response(data={'detail': False}, status=status.HTTP_200_OK)
+
 
 # story detail and delete
 class StoryDetailDeleteView(generics.RetrieveDestroyAPIView):
